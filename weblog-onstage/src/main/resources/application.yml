@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: onstage
+  cloud:
+    nacos:
+      #华为云访问地址
+      server-addr: 139.159.140.61:8848
+      config:
+        group: dev
+        namespace: 08a6cc58-f596-4441-a4ae-c4027c3632e3 #命名空间
+        refresh-enabled: true #开启动态刷新
+        file-extension: yml #
+        username: nacos
+        password: nacos
+      discovery:
+        group: dev
+        namespace: 08a6cc58-f596-4441-a4ae-c4027c3632e3
+        username: nacos
+        password: nacos
+  config:
+    import:
+      - nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension}?refresh=true
