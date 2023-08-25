@@ -25,7 +25,7 @@ public class ExceptionLog implements Serializable {
     /**
      * 异常id
      */
-    private Integer id;
+    private Long id;
     /**
      * 异常模块
      */

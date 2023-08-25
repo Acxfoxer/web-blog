@@ -21,7 +21,7 @@ export interface OutPut {
    /**
     * 来源
     */
-    from: string;
+    fromWhere: string;
    /**
     * 作者
     */

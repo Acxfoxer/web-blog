@@ -24,7 +24,7 @@ public class TaskBackVO {
      * 任务id
      */
     @ApiModelProperty(value = "任务id")
-    private Integer id;
+    private Long id;
 
     /**
      * 任务名称

@@ -25,7 +25,7 @@ public class Category implements Serializable {
     /**
      * 分类id
      */
-    private Integer id;
+    private Long id;
     /**
      * 分类名
      */

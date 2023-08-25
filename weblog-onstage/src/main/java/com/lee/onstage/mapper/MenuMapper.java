@@ -16,7 +16,7 @@ public interface MenuMapper extends BaseMapper<Menu> {
     /**
      * 根据用户id查看用户权限
      */
-    public List<Menu> selectByUserId(Integer userId);
+    public List<Menu> selectByUserId(Long userId);
 
 }
 

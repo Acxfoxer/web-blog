@@ -20,7 +20,7 @@ public class TagBackVO {
      * 标签id
      */
     @ApiModelProperty(value = "标签id")
-    private Integer id;
+    private Long id;
 
     /**
      * 标签名

@@ -25,7 +25,7 @@ public class Tag implements Serializable {
     /**
      * 标签id
      */
-    private Integer id;
+    private Long id;
     /**
      * 标签名
      */

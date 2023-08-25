@@ -25,7 +25,7 @@ public class Photo implements Serializable {
     /**
      * 照片id
      */
-    private Integer id;
+    private Long id;
     /**
      * 相册id
      */

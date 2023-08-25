@@ -25,7 +25,7 @@ public class Talk implements Serializable {
     /**
      * 说说id
      */
-    private Integer id;
+    private Long id;
     /**
      * 用户id
      */

@@ -20,7 +20,7 @@ public class TalkBackInfoVO {
      * 说说id
      */
     @ApiModelProperty(value = "说说id")
-    private Integer id;
+    private Long id;
 
     /**
      * 说说内容

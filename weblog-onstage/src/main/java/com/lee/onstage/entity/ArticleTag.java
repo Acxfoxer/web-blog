@@ -24,7 +24,7 @@ public class ArticleTag implements Serializable {
     /**
      * 主键
      */
-    private Integer id;
+    private Long id;
     /**
      * 文章id
      */

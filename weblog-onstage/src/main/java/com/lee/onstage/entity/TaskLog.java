@@ -25,7 +25,7 @@ public class TaskLog implements Serializable {
     /**
      * 任务日志id
      */
-    private Integer id;
+    private Long id;
     /**
      * 任务名称
      */

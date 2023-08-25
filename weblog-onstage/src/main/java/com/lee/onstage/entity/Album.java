@@ -27,8 +27,7 @@ public class Album implements Serializable {
     /**
      * 相册id
      */
-    @TableId(value = "id",type = IdType.AUTO)
-    private Integer id;
+    private Long id;
     /**
      * 相册名
      */

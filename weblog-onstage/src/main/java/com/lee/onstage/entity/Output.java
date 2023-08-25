@@ -14,14 +14,12 @@ import java.io.Serializable;
  * @since 2023-06-08 13:53:06
  */
 @Data
-@TableName("t_output")
 public class Output implements Serializable {
     private static final long serialVersionUID = -56631749792973001L;
     /**
      * id
      */
-    @TableId(value = "id",type = IdType.AUTO)
-    private Integer id;
+    private Long id;
     /**
      *  信息uuid
      */

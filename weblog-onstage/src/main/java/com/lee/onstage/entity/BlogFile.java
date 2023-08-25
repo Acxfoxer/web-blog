@@ -26,7 +26,7 @@ public class BlogFile implements Serializable {
     /**
      * 文件id
      */
-    private Integer id;
+    private Long id;
     /**
      * 文件url
      */

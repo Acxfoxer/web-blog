@@ -17,7 +17,7 @@ public class GitUserInfoVO {
      * 用户id
      */
     @ApiModelProperty(value = "用户id")
-    private String id;
+    private Long id;
 
     /**
      * 头像

@@ -13,6 +13,6 @@ import java.util.List;
  */
 public interface UserRoleMapper extends BaseMapper<UserRole> {
 
-    List<UserRole> getByUserId(Integer userId);
+    List<UserRole> getByUserId(Long userId);
 }
 

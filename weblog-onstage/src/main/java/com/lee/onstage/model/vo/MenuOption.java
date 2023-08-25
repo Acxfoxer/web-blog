@@ -29,7 +29,7 @@ public class MenuOption {
      */
     @JsonIgnore
     @ApiModelProperty(value = "父菜单id")
-    private Integer parentId;
+    private Long parentId;
 
     /**
      * 菜单名称

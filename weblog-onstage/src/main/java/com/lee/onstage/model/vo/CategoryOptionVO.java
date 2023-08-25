@@ -17,7 +17,7 @@ public class CategoryOptionVO {
      * 分类id
      */
     @ApiModelProperty(value = "分类id")
-    private Integer id;
+    private Long id;
 
     /**
      * 分类名

@@ -19,7 +19,7 @@ public class ArchiveVO {
      * 文章id
      */
     @ApiModelProperty(value = "文章id")
-    private Integer id;
+    private Long id;
 
     /**
      * 标题

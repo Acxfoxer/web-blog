@@ -18,7 +18,7 @@ public class UserMenuVO {
      * 菜单id
      */
     @ApiModelProperty(value = "菜单id")
-    private Integer id;
+    private Long id;
 
     /**
      * 父菜单id

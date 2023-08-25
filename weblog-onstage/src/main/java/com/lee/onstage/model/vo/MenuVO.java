@@ -22,13 +22,13 @@ public class MenuVO {
      * 菜单id
      */
     @ApiModelProperty(value = "菜单id")
-    private Integer id;
+    private Long id;
 
     /**
      * 父菜单id
      */
     @ApiModelProperty(value = "父级菜单id")
-    private Integer parentId;
+    private Long parentId;
 
     /**
      * 类型（M目录 C菜单 B按钮）

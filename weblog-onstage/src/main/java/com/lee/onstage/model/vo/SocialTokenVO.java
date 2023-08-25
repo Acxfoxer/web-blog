@@ -19,7 +19,7 @@ public class SocialTokenVO {
      * 开放id
      */
     @ApiModelProperty(value = "开放id")
-    private String openId;
+    private Long openId;
 
     /**
      * 访问令牌

@@ -25,7 +25,7 @@ public class SiteConfig implements Serializable {
     /**
      * 主键
      */
-    private Integer id;
+    private Long id;
     /**
      * 用户头像
      */

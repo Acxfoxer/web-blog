@@ -19,7 +19,7 @@ public class FriendBackVO {
      * 友链id
      */
     @ApiModelProperty(value = "友链id")
-    private Integer id;
+    private Long id;
 
     /**
      * 友链颜色

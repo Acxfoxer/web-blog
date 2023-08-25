@@ -21,7 +21,7 @@ public class UserInfoVO {
      * 用户id
      */
     @ApiModelProperty(value = "用户id")
-    private Integer id;
+    private Long id;
 
     /**
      * 用户头像

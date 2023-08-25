@@ -25,7 +25,7 @@ public class OperationLog implements Serializable {
     /**
      * 操作id
      */
-    private Integer id;
+    private Long id;
     /**
      * 操作模块
      */

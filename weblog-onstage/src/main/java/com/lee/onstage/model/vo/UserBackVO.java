@@ -21,7 +21,7 @@ public class UserBackVO {
      * 用户id
      */
     @ApiModelProperty(value = "用户id")
-    private Integer id;
+    private Long id;
 
     /**
      * 用户昵称

@@ -20,7 +20,7 @@ public class ArticleBackVO {
      * 文章id
      */
     @ApiModelProperty(value = "文章id")
-    private Integer id;
+    private Long id;
 
     /**
      * 文章缩略图

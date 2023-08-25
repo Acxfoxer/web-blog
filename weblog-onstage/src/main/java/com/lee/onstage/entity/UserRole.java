@@ -24,7 +24,7 @@ public class UserRole implements Serializable {
     /**
      * 主键
      */
-    private Integer id;
+    private Long id;
     /**
      * 用户id
      */

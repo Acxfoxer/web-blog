@@ -22,14 +22,14 @@ public class MenuTree {
      * 菜单id
      */
     @ApiModelProperty(value = "菜单id")
-    private Integer id;
+    private Long id;
 
     /**
      * 父菜单id
      */
     @JsonIgnore
     @ApiModelProperty(value = "父菜单id")
-    private Integer parentId;
+    private Long parentId;
 
     /**
      * 菜单名称

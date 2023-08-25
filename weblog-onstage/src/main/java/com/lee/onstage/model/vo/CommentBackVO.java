@@ -23,7 +23,7 @@ public class CommentBackVO {
      * 评论id
      */
     @ApiModelProperty(value = "评论id")
-    private String id;
+    private Long id;
 
     /**
      * 头像

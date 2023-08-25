@@ -18,7 +18,7 @@ public class PhotoBackVO {
      * 照片id
      */
     @ApiModelProperty(value = "照片id")
-    private Integer id;
+    private Long id;
 
     /**
      * 照片名

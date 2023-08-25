@@ -19,7 +19,7 @@ public class FileVO {
      * 文件id
      */
     @ApiModelProperty(value = "文件id")
-    private Integer id;
+    private Long id;
 
     /**
      * 文件url

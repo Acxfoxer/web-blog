@@ -25,7 +25,7 @@ public class Friend implements Serializable {
     /**
      * 友链id
      */
-    private Integer id;
+    private Long id;
     /**
      * 友链名称
      */

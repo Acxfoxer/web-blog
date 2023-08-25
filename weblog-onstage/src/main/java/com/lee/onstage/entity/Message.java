@@ -25,7 +25,7 @@ public class Message implements Serializable {
     /**
      * 留言id
      */
-    private Integer id;
+    private Long id;
     /**
      * 昵称
      */

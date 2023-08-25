@@ -22,7 +22,7 @@ public class UserBackInfoVO {
      * 用户id
      */
     @ApiModelProperty(value = "用户id")
-    private Integer id;
+    private Long id;
 
     /**
      * 头像

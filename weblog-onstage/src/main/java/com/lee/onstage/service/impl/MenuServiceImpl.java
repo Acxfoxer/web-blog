@@ -27,7 +27,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
      * @return
      */
     @Override
-    public List<Menu> getByUserId(Integer userId) {
+    public List<Menu> getByUserId(Long userId) {
         return menuMapper.selectByUserId(userId);
     }
 }

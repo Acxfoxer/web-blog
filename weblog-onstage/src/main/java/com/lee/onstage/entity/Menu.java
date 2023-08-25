@@ -25,7 +25,7 @@ public class Menu implements Serializable {
     /**
      * 主键
      */
-    private Integer id;
+    private Long id;
     /**
      * 父菜单id (paren_id为0且type为M则是一级菜单)
      */

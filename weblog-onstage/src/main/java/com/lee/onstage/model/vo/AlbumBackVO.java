@@ -18,7 +18,7 @@ public class AlbumBackVO {
      * 相册id
      */
     @ApiModelProperty(value = "相册id")
-    private Integer id;
+    private Long id;
 
     /**
      * 相册名

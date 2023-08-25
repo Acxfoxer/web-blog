@@ -19,7 +19,7 @@ public class SocialUserInfoVO {
      * id
      */
     @ApiModelProperty(value = "id")
-    private String id;
+    private Long id;
 
     /**
      * 头像

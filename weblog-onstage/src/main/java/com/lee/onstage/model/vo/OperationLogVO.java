@@ -19,7 +19,7 @@ public class OperationLogVO {
      * 操作日志id
      */
     @ApiModelProperty(value = "操作日志id")
-    private Integer id;
+    private Long id;
 
     /**
      * 操作模块

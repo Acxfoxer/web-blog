@@ -19,7 +19,7 @@ public class MessageBackVO {
      * 留言id
      */
     @ApiModelProperty(value = "留言id")
-    private Integer id;
+    private Long id;
 
     /**
      * 昵称

@@ -25,7 +25,7 @@ public class VisitLog implements Serializable {
     /**
      * id
      */
-    private Integer id;
+    private Long id;
     /**
      * 访问页面
      */
