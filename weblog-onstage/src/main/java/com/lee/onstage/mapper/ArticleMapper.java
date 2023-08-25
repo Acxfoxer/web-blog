@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lee.onstage.entity.Article;
 import com.lee.onstage.model.dto.PageParamDto;
 import com.lee.onstage.model.vo.ArticleBackVO;
+import com.lee.onstage.model.vo.ArticleStatisticsVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -23,5 +24,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
     List<ArticleBackVO> selectAll();
 
     List<ArticleBackVO> selectByIds(List<Integer> ids);
+
+    List<ArticleStatisticsVO> selectArticleStatistics();
 }
 

@@ -1,11 +1,15 @@
 package com.lee.onstage.service.impl;
 
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.lee.onstage.constants.ResultCode;
 import com.lee.onstage.entity.Article;
 import com.lee.onstage.entity.SiteConfig;
 import com.lee.onstage.mapper.*;
-import com.lee.onstage.model.vo.BlogBackInfoVO;
-import com.lee.onstage.model.vo.BlogInfoVO;
+import com.lee.onstage.model.vo.*;
+import com.lee.onstage.result.ResponseResult;
 import com.lee.onstage.service.BlogInfoService;
 import com.lee.onstage.service.SiteConfigService;
 import com.lee.onstage.utils.IPUtil;
@@ -15,10 +19,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
-import static com.lee.onstage.constants.RedisConstant.BLOG_VIEW_COUNT;
-import static com.lee.onstage.constants.RedisConstant.UNIQUE_VISITOR;
+import static com.lee.onstage.constants.RedisConstant.*;
 
 @Service
 public class BlogInfoServiceImpl implements BlogInfoService {
@@ -52,6 +56,8 @@ public class BlogInfoServiceImpl implements BlogInfoService {
 
     /**
      * 埋点用户访问博客数据
+     * @auther Acxfoxer
+     * @Date 2023-08-25
      */
     @Override
     public void report() {
@@ -75,6 +81,12 @@ public class BlogInfoServiceImpl implements BlogInfoService {
         }
     }
 
+    /**
+     * 获取博客基本信息
+     * @auther Acxfoxer
+     * @return BlogInfoVO
+     * @Date 2023-08-25
+     */
     @Override
     public BlogInfoVO getBlogInfo() {
         // 文章数量
@@ -98,13 +110,68 @@ public class BlogInfoServiceImpl implements BlogInfoService {
                 .build();
     }
 
+    /**
+     *获取博客后台信息
+     * @auther Acxfoxer
+     * @return BlogBackInfoVO
+     * @Date 2023-08-25
+     */
     @Override
     public BlogBackInfoVO getBlogBackInfo() {
-        return null;
-    }
+        // 标签数据
+        List<TagOptionVO> tagList = tagMapper.selectTagList();
+        // 文章数量
+        Long articleCount = articleMapper.selectCount(new LambdaQueryWrapper<Article>()
+                .eq(Article::getStatus, 1).eq(Article::getIsDelete, 0));
+        // 分类数据
+        List<CategoryVO> categoryVOList = categoryMapper.selectCategoryVOList();
+        // 博客访问量
+        Long blogViewCount = redisCache.getObject(BLOG_VIEW_COUNT);
+        // 用户数量
+        Long userCount =userMapper.selectCount(null);
+        // 留言量
+        Long messageCount=messageMapper.selectCount(null);
+        //查询当前时间前一周的用户访问记录
+        List<UserViewVO> userViewVOList=visitLogMapper.selectUserViewRecode(DateUtil.offsetDay(new Date(),-7),DateUtil.endOfDay(new Date()));
+        //文章统计
+        List<ArticleStatisticsVO> articleStatisticsVOList=articleMapper.selectArticleStatistics();
+        //查询redis访问量前五的文章
+        Map<Object, Double> articleMap = redisCache.getCacheZSetWithScore(ARTICLE_VIEW_COUNT, 0, 4);
+        BlogBackInfoVO blogBackInfoVO = BlogBackInfoVO.builder()
+                .articleStatisticsList(articleStatisticsVOList)
+                .articleCount(articleCount)
+                .categoryVOList(categoryVOList)
+                .viewCount(blogViewCount)
+                .messageCount(messageCount)
+                .userCount(userCount)
+                .tagVOList(tagList)
+                .userViewVOList(userViewVOList)
+                .build();
+        List<Integer> articleIdList = new ArrayList<>();
+        //获取访问量前五的文章id
+        if(ObjectUtil.isNotEmpty(articleMap))
+            articleMap.keySet().forEach(item->articleIdList.add((Integer) item));
+        //根据id查询文章信息,并组装文章排行信息
+        List<ArticleRankVO> articleRankVOList = articleMapper.selectByIds(articleIdList)
+                .stream()
+                .map(item -> {
+                    return ArticleRankVO.builder()
+                            .articleTitle(item.getArticleTitle())
+                            .viewCount(articleMap.get(item.getId()).intValue())
+                            .build();
+                }).collect(Collectors.toList());
+        blogBackInfoVO.setArticleRankVOList(articleRankVOList);
+        return blogBackInfoVO;
+        }
 
+    /**
+     * get aboutme
+     * @auther Acxfoxer
+     * @Date 2023-08-25
+     * @return String
+     */
     @Override
     public String getAbout() {
-        return null;
+        return siteConfigService.getSiteConfig().getAboutMe();
     }
 }

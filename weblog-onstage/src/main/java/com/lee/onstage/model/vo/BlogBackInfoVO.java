@@ -21,7 +21,7 @@ public class BlogBackInfoVO {
      * 访问量
      */
     @ApiModelProperty(value = "访问量")
-    private Integer viewCount;
+    private Long viewCount;
 
     /**
      * 留言量

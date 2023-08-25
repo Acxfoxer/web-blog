@@ -67,7 +67,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         //不存在,重新查询并算分
         //重新从redis中获取浏览量
-        Map<Object, Double> viewCountMap = redisCache.getCacheAllZSet(RedisConstant.ARTICLE_VIEW_COUNT,0,10);
+        Map<Object, Double> viewCountMap = redisCache.getCacheZSetWithScore(RedisConstant.ARTICLE_VIEW_COUNT,0,10);
         //从redis中获取文章点赞量
         Map<String, Integer> clickMap = redisCache.getHashAll(RedisConstant.ARTICLE_CLICK_COUNT);
         List<ArticleBackVO> articles = articleMapper.selectHotArticle();

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Component
 public class MyRedisCache {
     @Resource
-    private   RedisTemplate<String,Object> redisTemplate;
+    private  RedisTemplate<String,Object> redisTemplate;
 
     /**
      * 缓存基本的对象，Integer、String、实体类等
@@ -194,6 +194,8 @@ public class MyRedisCache {
         return redisTemplate.opsForZSet().reverseRange(key,beginIndex,endIndex);
     }
 
+
+
     /**
      * 对key的值进行原子增加
      * @param key   键
@@ -214,16 +216,14 @@ public class MyRedisCache {
         return redisTemplate.opsForValue().decrement(key,delta);
     }
     /**
-     * 获得所有缓存的结果
+     * 获取zset的降序排列,并返回map集合
      * @param key
      * @param start
      * @param end
      * @return
-     * @param <T>
      */
-
-    public <T> Map getCacheAllZSet(final String key,int start,int end){
-        return Objects.requireNonNull(redisTemplate.opsForZSet().rangeWithScores(key, start,end))
+    public <T> Map<Object,Double> getCacheZSetWithScore(final String key,int start,int end){
+        return Objects.requireNonNull(redisTemplate.opsForZSet().rangeWithScores(key, start, end))
                 .stream()
                 .collect(Collectors.toMap(ZSetOperations.TypedTuple::getValue, ZSetOperations.TypedTuple::getScore));
     }

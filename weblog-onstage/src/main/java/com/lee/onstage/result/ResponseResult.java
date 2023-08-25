@@ -1,6 +1,7 @@
 package com.lee.onstage.result;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.lee.onstage.constants.ResultCode;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -39,6 +40,12 @@ public class ResponseResult<T> implements Serializable {
         ResponseResult result = new ResponseResult();
         result.setCode(code);
         result.setMsg(msg);
+        return result;
+    }
+    public static ResponseResult success(Object data){
+        ResponseResult result = new ResponseResult();
+        result.setCode(ResultCode.SUCCESS.getValue());
+        result.setMsg(ResultCode.SUCCESS.getMsg());
         return result;
     }
     public static ResponseResult success(Integer code,String msg,Object data){
