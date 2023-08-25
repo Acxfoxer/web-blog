@@ -11,5 +11,6 @@ import com.lee.onstage.entity.SiteConfig;
  */
 public interface SiteConfigService extends IService<SiteConfig> {
 
+    SiteConfig getSiteConfig();
 }
 

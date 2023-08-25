@@ -37,6 +37,7 @@
         <mybatis.version>2.3.0</mybatis.version>
         <druid.version>1.2.15</druid.version>
         <cloud.version>2021.0.5</cloud.version>
+        <yauaa.version>7.9.0</yauaa.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -100,6 +101,12 @@
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
                 <version>${jwt.version}</version>
+            </dependency>
+            <!-- 解析客户端操作系统、浏览器等 -->
+            <dependency>
+                <groupId>nl.basjes.parse.useragent</groupId>
+                <artifactId>yauaa</artifactId>
+                <version>${yauaa.version}</version>
             </dependency>
             <!--hutool-->
             <dependency>

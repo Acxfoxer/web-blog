@@ -7,4 +7,5 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "博客信息模块")
 public class BlogInfoController {
 
+
 }

@@ -122,7 +122,7 @@ public class MyRedisCache {
     }
 
     /**
-     * 缓存Set
+     * 缓存Set集合数据
      *
      * @param key 缓存键值
      * @param dataSet 缓存的数据
@@ -138,7 +138,9 @@ public class MyRedisCache {
         }
         return setOperation;
     }
-
+    public <T> void setSet(String key, T... values){
+        redisTemplate.opsForSet().add(key, values);
+    }
     /**
      * 获得缓存的set
      *
@@ -150,6 +152,32 @@ public class MyRedisCache {
         return redisTemplate.opsForSet().members(key);
     }
 
+    /**
+     * 从缓存中获取对象
+     * @param key
+     * @return
+     * @param <T>
+     */
+    public <T> T getObject(String key){
+        return (T)redisTemplate.opsForValue().get(key);
+    }
+
+    /**
+     * 设置缓存
+     * @param key
+     * @param value
+     * @param <T>
+     */
+    public <T> void setObject(String key, T value) {
+        redisTemplate.opsForValue().set(key, value);
+    }
+    /**
+     * 添加zset类型缓存
+     * @param key
+     * @param value
+     * @param score
+     * @param <T>
+     */
     public <T> void setCacheZSet(final @NotNull String key, @NotNull Object value, @NotNull double score){
         redisTemplate.opsForZSet().add(key, value, score);
     }
@@ -166,6 +194,25 @@ public class MyRedisCache {
         return redisTemplate.opsForZSet().reverseRange(key,beginIndex,endIndex);
     }
 
+    /**
+     * 对key的值进行原子增加
+     * @param key   键
+     * @param delta 增长数
+     * @return
+     */
+    public Long incr(String key,long delta){
+        return redisTemplate.opsForValue().increment(key,delta);
+    }
+
+    /**
+     * 对key的值进行原子性减少
+     * @param key   键
+     * @param delta 减少数
+     * @return
+     */
+    public Long decr(String key,long delta){
+        return redisTemplate.opsForValue().decrement(key,delta);
+    }
     /**
      * 获得所有缓存的结果
      * @param key
@@ -267,12 +314,23 @@ public class MyRedisCache {
     }
 
     /**
-     * 获取文章的
+     *获取key对应的所有map键值对
      *
      * @param key
      * @return
      */
     public Map getHashAll(String key) {
         return redisTemplate.opsForHash().entries(key);
+    }
+
+    /**
+     * 查看该key 是否有值
+     * @param key
+     * @param value
+     * @return
+     * @param <T>
+     */
+    public <T> Boolean hasSetValue(String key,T value){
+        return redisTemplate.opsForSet().isMember(key,value);
     }
 }

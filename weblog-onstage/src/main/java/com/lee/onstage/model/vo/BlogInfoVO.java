@@ -42,7 +42,7 @@ public class BlogInfoVO {
      * 网站访问量
      */
     @ApiModelProperty(value = "网站访问量")
-    private String viewCount;
+    private Long viewCount;
 
     /**
      * 网站配置
