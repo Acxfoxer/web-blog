@@ -19,7 +19,6 @@ import java.util.Date;
 
 @SpringBootTest(classes = OnStageApp.class)
 public class OnStageApplicationTest {
-    @Resource(name = "redisTemplate")
     RedisTemplate<String,Object> redisTemplate;
 
     @Test
