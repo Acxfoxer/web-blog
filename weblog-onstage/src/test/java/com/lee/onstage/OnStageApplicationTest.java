@@ -1,5 +1,6 @@
 package com.lee.onstage;
 
+import cn.hutool.core.lang.UUID;
 import com.lee.onstage.strategy.StrategyContext;
 import com.lee.onstage.strategy.impl.MyStrategyAdd;
 import com.lee.onstage.strategy.impl.MyStrategyDivision;
@@ -21,5 +22,10 @@ public class OnStageApplicationTest {
         System.out.println(context2.executeStrategy(1,2));
         StrategyContext context3 = new StrategyContext(new MyStrategyMultiply());
         System.out.println(context3.executeStrategy(1,2));
+    }
+    @Test
+    void test1(){
+        String string = UUID.randomUUID().toString();
+        System.out.println(string);
     }
 }

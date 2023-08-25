@@ -19,6 +19,7 @@
 <script setup lang="ts">
 import useStore from "@/store";
 import EasyTyper from "easy-typer-js";
+import {getRandomOutPut} from "@/api/output";
 const obj = reactive({
   output: "",
   isEnd: false,
@@ -37,18 +38,26 @@ const scrollDown = () => {
   });
 };
 const fetchData = () => {
-  fetch("https://v1.hitokoto.cn")
-    .then((res) => {
-      return res.json();
-    })
-    .then(({ hitokoto }) => {
-      new EasyTyper(
-        obj,
-        hitokoto,
-        () => { },
-        () => { }
-      );
-    });
+  // fetch("http://localhost:8080/output/getDictum")
+  //   .then((res) => {
+  //     return res.json();
+  //   })
+  //   .then(({ dictum }) => {
+  //     new EasyTyper(
+  //       obj,
+  //       dictum,
+  //       () => { },
+  //       () => { }
+  //     );
+  //   });
+  getRandomOutPut().then(({data})=>{
+    new EasyTyper(
+      obj,
+      data.dictum,
+      ()=>{},
+      ()=>{}
+    );
+  })
 };
 onMounted(() => {
   fetchData();

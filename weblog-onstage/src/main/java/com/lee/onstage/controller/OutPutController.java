@@ -3,11 +3,10 @@ package com.lee.onstage.controller;
 
 import com.lee.onstage.entity.Output;
 
+import com.lee.onstage.model.dto.OutPutDto;
+import com.lee.onstage.result.ResponseResult;
 import com.lee.onstage.service.OutPutService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -17,9 +16,15 @@ import javax.annotation.Resource;
 public class OutPutController {
     @Resource
     private OutPutService outPutService;
-    @GetMapping("/1")
+    @GetMapping("/getDictum")
     @CrossOrigin("*")
     public Output getRandomOutPut(){
         return outPutService.getRandomOutPut();
+    }
+
+    @PostMapping("/addDictum")
+    @CrossOrigin("*")
+    public ResponseResult addDictum(@RequestBody OutPutDto outPutDto){
+        return outPutService.addDictum(outPutDto);
     }
 }
