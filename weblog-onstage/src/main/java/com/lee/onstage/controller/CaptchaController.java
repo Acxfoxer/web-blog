@@ -1,6 +1,7 @@
 package com.lee.onstage.controller;
 
 import cn.hutool.captcha.CaptchaUtil;
+import cn.hutool.captcha.GifCaptcha;
 import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.captcha.generator.RandomGenerator;
 import io.swagger.annotations.Api;
@@ -25,7 +26,7 @@ public class CaptchaController {
     @RequestMapping("/captcha")
     @ApiOperation(value = "验证码")
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        CaptchaUtil.createGifCaptcha(120, 45, 4);
+        GifCaptcha gifCaptcha = CaptchaUtil.createGifCaptcha(120, 45, 4);
         RandomGenerator randomGenerator = new RandomGenerator("0123456789", 4);
         // 定义图片的显示大小
         LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(120, 45);

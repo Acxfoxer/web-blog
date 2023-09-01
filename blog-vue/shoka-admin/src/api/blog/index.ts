@@ -17,9 +17,9 @@ export function getBlogInfo(): AxiosPromise<Result<BlogInfo>> {
 /**
  * 上传访客信息
  */
-export function report(): AxiosPromise<Result<null>> {
+export function recordVisitorInfo(): AxiosPromise<Result<null>> {
   return request({
-    url: "/report",
+    url: "/recordVisitorInfo",
     method: "post",
   });
 }

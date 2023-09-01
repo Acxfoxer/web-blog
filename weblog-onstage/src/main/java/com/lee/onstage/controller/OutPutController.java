@@ -24,7 +24,7 @@ public class OutPutController {
 
     @PostMapping("/addDictum")
     @CrossOrigin("*")
-    public ResponseResult addDictum(@RequestBody OutPutDto outPutDto){
+    public ResponseResult<?> addDictum(@RequestBody OutPutDto outPutDto){
         return outPutService.addDictum(outPutDto);
     }
 }

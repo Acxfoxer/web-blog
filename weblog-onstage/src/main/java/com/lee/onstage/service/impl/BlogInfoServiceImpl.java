@@ -1,15 +1,12 @@
 package com.lee.onstage.service.impl;
 
-import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.lee.onstage.constants.ResultCode;
 import com.lee.onstage.entity.Article;
 import com.lee.onstage.entity.SiteConfig;
 import com.lee.onstage.mapper.*;
 import com.lee.onstage.model.vo.*;
-import com.lee.onstage.result.ResponseResult;
 import com.lee.onstage.service.BlogInfoService;
 import com.lee.onstage.service.SiteConfigService;
 import com.lee.onstage.utils.IPUtil;
@@ -19,7 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.lee.onstage.constants.RedisConstant.*;
@@ -54,32 +54,6 @@ public class BlogInfoServiceImpl implements BlogInfoService {
         this.request = request;
     }
 
-    /**
-     * 埋点用户访问博客数据
-     * @auther Acxfoxer
-     * @Date 2023-08-25
-     */
-    @Override
-    public void report() {
-        //获取当前用户iP
-        String ipAddress = IPUtil.getIpAddr(request);
-        //解析用户客户端操作系统和浏览器版本
-        Map<String, String> userAgentMap = UserAgentUtils.parseOsAndBrowser(request.getHeader("User-Agent"));
-        //获取访问设备信息
-        String browser = userAgentMap.get("browser");
-        String os = userAgentMap.get("os");
-        //生成用户唯一标识
-        String uuid = ipAddress+browser+os;
-        //对唯一标识进行MD5加密
-        String md5 = DigestUtils.md5DigestAsHex(uuid.getBytes());
-        // 判断是否访问
-        if(!redisCache.hasSetValue(UNIQUE_VISITOR,md5)){
-            //访问量加一
-            redisCache.incr(BLOG_VIEW_COUNT,1);
-            //保存唯一标识
-            redisCache.setSet(UNIQUE_VISITOR,md5);
-        }
-    }
 
     /**
      * 获取博客基本信息
@@ -154,12 +128,12 @@ public class BlogInfoServiceImpl implements BlogInfoService {
         //根据id查询文章信息,并组装文章排行信息
         List<ArticleRankVO> articleRankVOList = articleMapper.selectByIds(articleIdList)
                 .stream()
-                .map(item -> {
-                    return ArticleRankVO.builder()
+                .map(item ->
+                    ArticleRankVO.builder()
                             .articleTitle(item.getArticleTitle())
                             .viewCount(articleMap.get(item.getId()).intValue())
-                            .build();
-                }).collect(Collectors.toList());
+                            .build()
+                ).collect(Collectors.toList());
         blogBackInfoVO.setArticleRankVOList(articleRankVOList);
         return blogBackInfoVO;
         }
@@ -173,5 +147,32 @@ public class BlogInfoServiceImpl implements BlogInfoService {
     @Override
     public String getAbout() {
         return siteConfigService.getSiteConfig().getAboutMe();
+    }
+
+    /**
+     * 埋点用户访问博客数据
+     * @auther Acxfoxer
+     * @Date 2023-08-25
+     */
+    @Override
+    public void recordVisitorInfo() {
+        //获取当前用户iP
+        String ipAddress = IPUtil.getIpAddr(request);
+        //解析用户客户端操作系统和浏览器版本
+        Map<String, String> userAgentMap = UserAgentUtils.parseOsAndBrowser(request.getHeader("User-Agent"));
+        //获取访问设备信息
+        String browser = userAgentMap.get("browser");
+        String os = userAgentMap.get("os");
+        //生成用户唯一标识
+        String uuid = ipAddress+browser+os;
+        //对唯一标识进行MD5加密
+        String md5 = DigestUtils.md5DigestAsHex(uuid.getBytes());
+        // 判断是否访问
+        if(!redisCache.hasSetValue(UNIQUE_VISITOR,md5)){
+            //访问量加一
+            redisCache.incr(BLOG_VIEW_COUNT,1);
+            //保存唯一标识
+            redisCache.setSet(UNIQUE_VISITOR,md5);
+        }
     }
 }

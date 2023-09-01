@@ -36,33 +36,29 @@ public class ResponseResult<T> implements Serializable {
         this.data = data;
     }
 
-    public static ResponseResult success(Integer code,String msg){
-        ResponseResult result = new ResponseResult();
-        result.setCode(code);
-        result.setMsg(msg);
-        return result;
+    public static <T> ResponseResult<T> success(Integer code,String msg){
+        return buildResult(code,msg,null);
     }
-    public static ResponseResult success(Object data){
-        ResponseResult result = new ResponseResult();
-        result.setCode(ResultCode.SUCCESS.getValue());
-        result.setMsg(ResultCode.SUCCESS.getMsg());
-        return result;
+    public static <T> ResponseResult<T> success(T data){
+        return  buildResult(ResultCode.SUCCESS.getValue(),ResultCode.SUCCESS.getMsg(),data);
     }
-    public static ResponseResult success(Integer code,String msg,Object data){
-        ResponseResult result = new ResponseResult();
+    public static <T> ResponseResult<T> success(Integer code,String msg,T data){
+        return buildResult(code,msg,data);
+    }
+
+    public static <T> ResponseResult<T> success(){
+        return  buildResult(ResultCode.SUCCESS.getValue(),ResultCode.SUCCESS.getMsg(),null);
+    }
+    public static <T> ResponseResult<T> error(Integer code,String msg){
+       return buildResult(code,msg,null);
+    }
+    public static <T> ResponseResult<T> error(String msg){
+        return buildResult(null,msg,null);
+    }
+    private static <T> ResponseResult<T> buildResult(Integer code,String msg,T data){
+        ResponseResult<T> result =new ResponseResult<>();
         result.setCode(code);
-        result.setMsg(msg);
         result.setData(data);
-        return result;
-    }
-    public static ResponseResult error(Integer code,String msg){
-        ResponseResult result = new ResponseResult();
-        result.setCode(code);
-        result.setMsg(msg);
-        return result;
-    }
-    public static ResponseResult error(String msg){
-        ResponseResult result = new ResponseResult();
         result.setMsg(msg);
         return result;
     }

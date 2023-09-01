@@ -2,7 +2,7 @@
   <div class="brand-container">
     <div class="brand">
       <!-- 标题 -->
-      <p class="artboard">{{ blog.blogInfo.siteConfig.siteName }}</p>
+      <!-- <p class="artboard">{{ blog.blogInfo.siteConfig.siteName }}</p> -->
       <!-- 打字机 -->
       <div class="title">
         {{ obj.output }}
@@ -83,13 +83,13 @@ onMounted(() => {
   position: fixed;
   z-index: -1;
 
-  .artboard {
-    font-family: "Fredericka the Great", Mulish, -apple-system, "PingFang SC", "Microsoft YaHei",
-      sans-serif;
-    font-size: 3.5em;
-    line-height: 1.2;
-    animation: titleScale 1s;
-  }
+  // .artboard {
+  //   font-family: "Fredericka the Great", Mulish, -apple-system, "PingFang SC", "Microsoft YaHei",
+  //     sans-serif;
+  //   font-size: 3.5em;
+  //   line-height: 1.2;
+  //   animation: titleScale 1s;
+  // }
 
   .title {
     letter-spacing: 0.1em;

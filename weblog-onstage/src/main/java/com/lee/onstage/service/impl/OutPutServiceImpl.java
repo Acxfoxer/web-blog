@@ -23,7 +23,7 @@ public class OutPutServiceImpl extends ServiceImpl<OutPutMapper,Output> implemen
     }
 
     @Override
-    public ResponseResult addDictum(OutPutDto outPutDto) {
+    public ResponseResult<?> addDictum(OutPutDto outPutDto) {
         String uuid = UUID.randomUUID().toString();
         System.out.println(uuid);
         int length=outPutDto.getDictum().length();

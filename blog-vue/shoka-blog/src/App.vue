@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { getBlogInfo, report } from "@/api/blogInfo";
+import { getBlogInfo, recordVisitorInfo } from "@/api/blogInfo";
 import useStore from '@/store';
 const { blog } = useStore();
 onMounted(() => {
@@ -37,7 +37,7 @@ onMounted(() => {
   getBlogInfo().then(({ data }) => {
     blog.setBlogInfo(data.data);
   });
-  report();
+  recordVisitorInfo();
 })
 </script>
 
