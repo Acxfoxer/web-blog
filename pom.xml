@@ -38,6 +38,8 @@
         <druid.version>1.2.15</druid.version>
         <cloud.version>2021.0.5</cloud.version>
         <yauaa.version>7.9.0</yauaa.version>
+<!--       <jasypt.version>3.0.5</jasypt.version>-->
+        <idaas.version>1.0.0</idaas.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -166,7 +168,12 @@
                 <artifactId>knife4j-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
             </dependency>
-
+            <!--引入密码验证服务-->
+            <dependency>
+                <groupId>com.acxfoxer.idaas</groupId>
+                <artifactId>data-enAnddecrypt-boot-starter</artifactId>
+                <version>${idaas.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

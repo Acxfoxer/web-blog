@@ -1,22 +1,73 @@
+server:
+  port: 8080
 spring:
+  profiles:
+    active: dev
   application:
     name: onstage
-  cloud:
-    nacos:
-      #华为云访问地址
-      server-addr: 139.159.140.61:8848
-      config:
-        group: dev
-        namespace: 08a6cc58-f596-4441-a4ae-c4027c3632e3 #命名空间
-        refresh-enabled: true #开启动态刷新
-        file-extension: yml #
-        username: nacos
-        password: nacos
-      discovery:
-        group: dev
-        namespace: 08a6cc58-f596-4441-a4ae-c4027c3632e3
-        username: nacos
-        password: nacos
-  config:
-    import:
-      - nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension}?refresh=true
+  #数据源配置
+  datasource:
+    url: AIDSREN(AEN(༔༎༌།໤༗༣༝༛༖໤໙໙໛ໝ໣໘໛ໟ໣໘໛ໞ໚໘໠໛໤ໝໝ໚໠໙༌༖༙༑໩༟༝༏໿༘༓།༙༎༏໧༞༜༟༏໐།༒་༜་།༞༏༜໯༘།༙༎༓༘༑໧༟༞༐໗໢໐༟༝༏໽໽໶໧༐་༖༝༏໐༝༏༜༠༏༜໾༓༗༏༤༙༘༏໧໿໾໭))
+    username: AIDSREN(AEN(༜༙༙༞))
+    password: AIDSREN(AEN(໛໢ໜ໣໚ໞ໡༃༣໘))
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  #servlet配置
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  #redis配置
+  redis:
+    host: AIDSREN(AEN(໛ໝ໣໘໛ໟ໣໘໛ໞ໚໘໠໛))
+    username: AIDSREN(AEN(་།༢༐༙༢༏༜))
+    password: AIDSREN(AEN(໛໢ໜ໣໚ໞ໡༃༣໘))
+  # 热部署
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+      exclude: WEB-INF/**
+  #使用Thymeleaf模板引擎，关闭缓存
+  thymeleaf:
+    cache: false
+  #mybatis-plus配置
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      # 配置MyBatis-Plus操作表的默认前缀
+      table-prefix: t_
+      # id生成策略自动增长
+      id-type: assign_id
+      logic-delete-value: 1
+      logic-delete-field: delFlag
+knife4j:
+  # 开启增强配置
+  # 开启Swagger的Basic认证功能,默认是false
+  enable: true
+  basic:
+    enable: true
+    # Basic认证用户名
+    username: AIRSREN(AEN(༖༏༏))
+    # Basic认证密码
+    password: AIRSREN(AEN(໛ໜໝໞ))
+logging:
+  file:
+    #日志保存到项目路径下的log文件夹里面
+    path: classpath:log/onstage.log
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: lyp_dsb #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(60*60*24*7)
+  tokenHead: 'BeeBee ' #JWT负载中拿到头
+#  加解密服务配置
+idaas:
+  decryptor:
+    decrypt-password: 3754
+    url:
+    custom-get-cryptor-class:
+  encryptor:
+    algorithm: kaiser
+    encrypt-password: 3754
