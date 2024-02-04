@@ -1,2 +1,4 @@
 # Project exclude paths
 /weblog-onstage/target/
+/.idea/*
+
