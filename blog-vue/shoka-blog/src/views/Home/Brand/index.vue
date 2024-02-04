@@ -5,7 +5,7 @@
       <!-- <p class="artboard">{{ blog.blogInfo.siteConfig.siteName }}</p> -->
       <!-- 打字机 -->
       <div class="title">
-        {{ obj.output }}
+        {{ scrollWorlObj.output }}
         <span class="easy-typed-cursor">|</span>
       </div>
     </div>
@@ -15,12 +15,11 @@
     <svg-icon class="arrow-down" icon-class="down" size="32px" @click="scrollDown"></svg-icon>
   </div>
 </template>
-
 <script setup lang="ts">
 import useStore from "@/store";
 import EasyTyper from "easy-typer-js";
-import {getRandomOutPut} from "@/api/output";
-const obj = reactive({
+import {getRandomScrollWord} from "@/api/scrollword"; 
+const scrollWorlObj = reactive({
   output: "",
   isEnd: false,
   speed: 100,
@@ -38,22 +37,10 @@ const scrollDown = () => {
   });
 };
 const fetchData = () => {
-  // fetch("http://localhost:8080/output/getDictum")
-  //   .then((res) => {
-  //     return res.json();
-  //   })
-  //   .then(({ dictum }) => {
-  //     new EasyTyper(
-  //       obj,
-  //       dictum,
-  //       () => { },
-  //       () => { }
-  //     );
-  //   });
-  getRandomOutPut().then(({data})=>{
+  getRandomScrollWord().then(({data})=>{
     new EasyTyper(
-      obj,
-      data.dictum,
+      scrollWorlObj,
+      data.data.dictum,
       ()=>{},
       ()=>{}
     );

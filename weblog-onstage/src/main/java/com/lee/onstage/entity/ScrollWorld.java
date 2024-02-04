@@ -1,20 +1,26 @@
 package com.lee.onstage.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.io.Serializable;
 
 /**
- * (Output)实体类
+ * (ScrollWorld)实体类
  *
  * @author makejava
  * @since 2023-06-08 13:53:06
  */
 @Data
-public class Output implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class ScrollWorld implements Serializable {
     private static final long serialVersionUID = -56631749792973001L;
     /**
      * id
@@ -61,7 +67,8 @@ public class Output implements Serializable {
      */
 
     @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createdAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDateTime createdTime;
     /**
      * 长度
      */

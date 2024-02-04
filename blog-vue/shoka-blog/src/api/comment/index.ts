@@ -9,7 +9,7 @@ import { Comment, CommentForm, CommentQuery, RecentComment, Reply } from "./type
  */
 export function getRecentComment(): AxiosPromise<Result<RecentComment[]>> {
   return request({
-    url: "/recent/comment",
+    url: "/comment/recent",
     method: "get",
   });
 }

@@ -3,6 +3,7 @@ package com.lee.onstage.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lee.onstage.entity.Tag;
 import com.lee.onstage.model.vo.TagOptionVO;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * @author lee
  * @since 2023-05-07 15:45:52
  */
+@Mapper
 public interface TagMapper extends BaseMapper<Tag> {
     /**
      * 查询所有的标签集合

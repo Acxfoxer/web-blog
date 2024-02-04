@@ -1,4 +1,4 @@
-import { PageQuery, PageResult, Result } from "@/model";
+import { PageQuery, PageResult, ResponseResult, Result } from "@/model";
 import request from "@/utils/request";
 import { AxiosPromise } from "axios";
 import { Talk } from "./types";
@@ -20,9 +20,9 @@ export function getTalkList(params: PageQuery): AxiosPromise<Result<PageResult<T
  * 查看首页说说
  * @returns 首页说说
  */
-export function getTalkHomeList(): AxiosPromise<Result<string[]>> {
+export function getTalkHomeList(): AxiosPromise<ResponseResult<string[]>> {
   return request({
-    url: "/home/talk",
+    url: "/talk/home",
     method: "get",
   });
 }

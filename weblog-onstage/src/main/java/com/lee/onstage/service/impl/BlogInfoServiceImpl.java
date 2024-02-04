@@ -12,6 +12,7 @@ import com.lee.onstage.service.SiteConfigService;
 import com.lee.onstage.utils.IPUtil;
 import com.lee.onstage.utils.MyRedisCache;
 import com.lee.onstage.utils.UserAgentUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -71,7 +72,7 @@ public class BlogInfoServiceImpl implements BlogInfoService {
         // 标签数量
         Long tagCount = tagMapper.selectCount(null);
         // 博客访问量
-        Long blogViewCount = redisCache.getObject(BLOG_VIEW_COUNT);
+        long blogViewCount = Long.parseLong(redisCache.getObject(BLOG_VIEW_COUNT).toString());
         // 网站配置
         SiteConfig siteConfig = siteConfigService.getSiteConfig();
         //构造返回参数

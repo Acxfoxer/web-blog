@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lee.onstage.entity.VisitLog;
 import com.lee.onstage.model.vo.UserViewVO;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @author lee
  * @since 2023-05-07 15:45:55
  */
+@Mapper
 public interface VisitLogMapper extends BaseMapper<VisitLog> {
 
     List<UserViewVO> selectUserViewRecode(DateTime startTime, DateTime endTime);

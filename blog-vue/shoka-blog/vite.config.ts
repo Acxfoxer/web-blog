@@ -60,10 +60,11 @@ export default defineConfig({
     extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json", ".vue"],
   },
   server: {
+    hmr: true,
     open: true,
     proxy: {
       "/api": {
-        target: "http://localhost:8080",
+        target: "http://localhost:8111",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

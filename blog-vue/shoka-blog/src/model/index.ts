@@ -32,6 +32,24 @@ export interface Result<T> {
    */
   data: T;
 }
+/**
+ * 首页滚动输出字体信息
+ */
+export interface ResponseResult<T> {
+  /**
+    * id
+    */
+  code:number;
+  /**
+   *  信息uuid
+   */
+  msg: string;
+  /**
+   *  名言,警句
+   */
+  data: T;
+}
+
 
 /**
  * 分页参数
