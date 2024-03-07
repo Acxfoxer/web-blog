@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.io.Serializable;
 
 /**
@@ -68,7 +68,7 @@ public class ScrollWorld implements Serializable {
 
     @TableField(fill = FieldFill.INSERT)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private LocalDateTime createdTime;
+    private Date createdTime;
     /**
      * 长度
      */

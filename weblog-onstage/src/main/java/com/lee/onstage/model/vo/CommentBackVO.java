@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 评论后台VO
@@ -71,6 +71,6 @@ public class CommentBackVO {
      * 发表时间
      */
     @ApiModelProperty(value = "发表时间")
-    private LocalDateTime createTime;
+    private Date createTime;
 
 }

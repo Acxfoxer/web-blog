@@ -8,7 +8,7 @@ import { Talk } from "./types";
  * @param params 查询条件
  * @returns 说说列表
  */
-export function getTalkList(params: PageQuery): AxiosPromise<Result<PageResult<Talk[]>>> {
+export function getTalkList(params: PageQuery): AxiosPromise<ResponseResult<PageResult<Talk[]>>> {
   return request({
     url: "/talk/list",
     method: "get",

@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lee.onstage.mapper.ScrollWordMapper">
     <insert id="addOutPut">
-        INSERT INTO t_scroll_world  ( uuid, dictum, type, `from`, from_who, creator, creator_uid, reviewer, commit_from, created_at, length )
+        INSERT INTO t_scroll_word  ( uuid, dictum, type, `from`, from_who, creator, creator_uid, reviewer, commit_from, created_at, length )
         VALUES(#{uuid},#{dictum},#{type},#{from},#{fromWho},#{creator},#{creatorUid},#{reviewer},#{commitFrom},#{createdAt},#{length})
     </insert>
 
     <select id="getRandomOutPut" resultType="com.lee.onstage.entity.ScrollWorld">
-        select * from t_scroll_world order by rand() limit 1
+        select * from t_scroll_word order by rand() limit 1
     </select>
 </mapper>
 

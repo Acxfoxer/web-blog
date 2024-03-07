@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 友链后台VO
@@ -55,6 +55,6 @@ public class FriendBackVO {
      * 创建时间
      */
     @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
+    private Date createTime;
 
 }

@@ -12,13 +12,13 @@
 <script setup lang="ts">
 
 const imageList = [
-  "https://lyp.obs.cn-south-1.myhuaweicloud.com/1241.jpg",
-  "https://lyp.obs.cn-south-1.myhuaweicloud.com/12141.jpg",
-  "https://lyp.obs.cn-south-1.myhuaweicloud.com/thumbbig-1031268.webp",
-  "https://lyp.obs.cn-south-1.myhuaweicloud.com/thumbbig-1082993.webp",
-  "https://lyp.obs.cn-south-1.myhuaweicloud.com/thumbbig-1139903.webp",
-  "https://lyp.obs.cn-south-1.myhuaweicloud.com/thumbbig-1316171.webp",
-  "https://lyp.obs.cn-south-1.myhuaweicloud.com/12142.jpg"
+  "https://lyp.obs.cn-south-1.myhuaweicloud.com/blog/cover/12144.jpg",
+  "https://lyp.obs.cn-south-1.myhuaweicloud.com/blog/cover/12141.jpg",
+  "https://lyp.obs.cn-south-1.myhuaweicloud.com/blog/cover/RE4wHfl.jpg",
+  "https://lyp.obs.cn-south-1.myhuaweicloud.com/blog/cover/AA11NbLE.jpg",
+  "https://lyp.obs.cn-south-1.myhuaweicloud.com/blog/cover/12140.jpg",
+  "https://lyp.obs.cn-south-1.myhuaweicloud.com/blog/cover/12143.jpg",
+  "https://lyp.obs.cn-south-1.myhuaweicloud.com/blog/cover/12142.jpg"
 ]
 </script>
 

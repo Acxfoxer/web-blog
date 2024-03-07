@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -86,11 +86,11 @@ public class ArticleVO {
      * 发表时间
      */
     @ApiModelProperty(value = "发表时间")
-    private LocalDateTime createTime;
+    private Date createTime;
 
     /**
      * 更新时间
      */
     @ApiModelProperty(value = "更新时间")
-    private LocalDateTime updateTime;
+    private Date updateTime;
 }

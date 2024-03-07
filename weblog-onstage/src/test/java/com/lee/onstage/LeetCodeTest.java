@@ -59,7 +59,7 @@ public class LeetCodeTest {
     public static  int[] numsGame(int[] nums){
         //考虑结果很大,对10000007取模
         final int MOD = 10000007;
-        //指定值小的优先级高,跟顶为大根(大值)维护数组中位数左边较小一半值,似递增序列
+        //指定值小的优先级高,跟顶为大根(大值)维护数组中位数左边较小一半值,似递增序列,为大根堆
         PriorityQueue<Integer> left = new PriorityQueue<>((a,b)->b-a);
         //默认小根堆,(堆顶优先级最高的为较小值,似递减序列)维护数组中右边较大一半值
         PriorityQueue<Integer> right = new PriorityQueue<>();

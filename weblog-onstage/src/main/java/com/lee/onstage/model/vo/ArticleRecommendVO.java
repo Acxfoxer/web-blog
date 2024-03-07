@@ -4,7 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Date;
 
 /**
  * 推荐文章
@@ -37,5 +38,5 @@ public class ArticleRecommendVO {
      * 发布时间
      */
     @ApiModelProperty(value = "发布时间")
-    private LocalDateTime createTime;
+    private Date createTime;
 }

@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 留言后台VO
@@ -61,5 +61,5 @@ public class MessageBackVO {
      * 留言时间
      */
     @ApiModelProperty(value = "留言时间")
-    private LocalDateTime createTime;
+    private Date createTime;
 }

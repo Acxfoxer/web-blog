@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 在线用户VO
@@ -74,6 +74,6 @@ public class OnlineVO {
      * 登录时间
      */
     @ApiModelProperty(value = "登录时间")
-    private LocalDateTime loginTime;
+    private Date loginTime;
 
 }

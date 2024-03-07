@@ -7,20 +7,20 @@ spring:
     name: onstage
   #数据源配置
   datasource:
-    url: AIDSREN(AEN(༔༎༌།໤༗༣༝༛༖໤໙໙໛ໝ໣໘໛ໟ໣໘໛ໞ໚໘໠໛໤ໝໝ໚໠໙༡༏༌༖༙༑໩༟༝༏໿༘༓།༙༎༏໧༞༜༟༏໐།༒་༜་།༞༏༜໯༘།༙༎༓༘༑໧༟༞༐໗໢໐༟༝༏໽໽໶໧༐་༖༝༏໐༝༏༜༠༏༜໾༓༗༏༤༙༘༏໧໿໾໭໐་༖༖༙༡໺༟༌༖༓།໵༏༣໼༏༞༜༓༏༠་༖໧༞༜༟༏))
-    username: AIDSREN(AEN(༓༕༉༖༏༓))
-    password: AIDSREN(AEN(໛໢ໜ໣໚ໞ໡༃༣໘))
+    url: AIDSREN(AEN(༔༎༌།໤༗༣༝༛༖໤໙໙໛ໝ໣໘໛ໟ໣໘໛ໞ໚໘໠໛໤ໝໝ໚໠໙༗༣༉༌༖༙༑໩༟༝༏໿༘༓།༙༎༏໧༞༜༟༏໐།༒་༜་།༞༏༜໯༘།༙༎༓༘༑໧༟༞༐໗໢໐༟༝༏໽໽໶໧༐་༖༝༏໐༝༏༜༠༏༜໾༓༗༏༤༙༘༏໧໿໾໭໐་༖༖༙༡໺༟༌༖༓།໵༏༣໼༏༞༜༓༏༠་༖໧༞༜༟༏))
+    username: AIDSREN(AEN(༞༜༟༎༏༉༖༏༓))
+    password: AIDSREN(AEN(༝༟༘༗༙༘༕༏༣໪༗༣༝༛༖໢༉໶༣༚))
     driver-class-name: com.mysql.cj.jdbc.Driver
   #servlet配置
   servlet:
     multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
+      max-file-size: 1000MB
+      max-request-size: 1000MB
   #redis配置
   redis:
     host: AIDSREN(AEN(໛ໝ໣໘໛ໟ໣໘໛ໞ໚໘໠໛))
-    username: AIDSREN(AEN(༓༕༉༖༏༓༉༜༏༎༓༝))
-    password: AIDSREN(AEN(໛ໜໝໞໟ໠))
+    username: AIDSREN(AEN(༞༜༟༎༏༉༖༏༓༉༜༏༎༓༝))
+    password: AIDSREN(AEN(༝༟༘༗༙༘༕༏༣໪༜༏༎༓༝༉໶༣༚))
   # 热部署
   devtools:
     restart:

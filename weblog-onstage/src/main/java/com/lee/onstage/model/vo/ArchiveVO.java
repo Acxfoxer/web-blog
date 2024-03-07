@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 文章归档
@@ -37,5 +37,5 @@ public class ArchiveVO {
      * 发表时间
      */
     @ApiModelProperty(value = "发表时间")
-    private LocalDateTime createTime;
+    private Date createTime;
 }
