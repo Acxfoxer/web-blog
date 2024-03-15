@@ -22,7 +22,7 @@ public interface TalkMapper extends BaseMapper<Talk> {
      * @param size
      * @return
      */
-    @Select("select * from t_talk where status=1 order by is_top desc,id desc limit #{current},#{size}")
+    @Select("select t.*,tu.avatar from t_talk t left join t_user tu on tu.id=t.user_id where t.status=1 order by is_top desc,id desc limit #{current},#{size}")
     List<TalkVO> selectTalkList(int current, int size);
 }
 

@@ -12,7 +12,6 @@ import com.lee.onstage.service.SiteConfigService;
 import com.lee.onstage.utils.IPUtil;
 import com.lee.onstage.utils.MyRedisCache;
 import com.lee.onstage.utils.UserAgentUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -25,7 +24,7 @@ import java.util.stream.Collectors;
 
 import static com.lee.onstage.constants.RedisConstant.*;
 
-@Service
+@Service("blogInfoService")
 public class BlogInfoServiceImpl implements BlogInfoService {
     private final ArticleMapper articleMapper;
 

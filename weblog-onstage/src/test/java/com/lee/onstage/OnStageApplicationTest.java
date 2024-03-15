@@ -45,7 +45,7 @@ public class OnStageApplicationTest {
     }
     @Test
     void test2(){
-        LocalDateTime now = LocalDateTime.now();
+        DateTime now = DateTime.now();
         System.out.println(now);
         DateTime dateTime = DateUtil.beginOfDay(DateUtil.offsetDay(new Date(), -7));
         DateTime dateTime1 = DateUtil.endOfDay(new Date());
