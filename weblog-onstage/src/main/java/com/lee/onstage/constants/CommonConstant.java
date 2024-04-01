@@ -93,4 +93,9 @@ public class CommonConstant {
      */
     public final static String PARENT_VIEW = "ParentView";
 
+    public final static String TRACE_ID="traceId";
+    public final static String SPAN_ID="spanId";
+    public final static String PARENT_SPAN_ID="parentSpanId";
+    public final static String LOG_CONTEXT_KEY="log_context_key";
+
 }

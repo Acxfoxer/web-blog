@@ -4,11 +4,6 @@ import java.util.PriorityQueue;
 
 public class LeetCodeTest {
     public static void main(String[] args) {
-        int[] nums = new int[]{3,4,5,1,6,7};
-        int[] ints = numsGame(nums);
-        for (int num : ints) {
-            System.out.println(num);
-        }
 
     }
 

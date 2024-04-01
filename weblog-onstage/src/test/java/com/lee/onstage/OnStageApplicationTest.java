@@ -8,7 +8,6 @@ import com.lee.onstage.strategy.impl.MyStrategyAdd;
 import com.lee.onstage.strategy.impl.MyStrategyDivision;
 import com.lee.onstage.strategy.impl.MyStrategyMultiply;
 import com.lee.onstage.strategy.impl.MyStrategySubtract;
-import com.lee.onstage.utils.MyRedisCache;
 import org.jasypt.encryption.StringEncryptor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.Date;
 import java.util.Set;
 

@@ -5,13 +5,16 @@
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
     <springProperty scope="context" name="appName" source="spring.application.name"/>
+    <contextName>${springApplicationName}</contextName>
+    <!-- 彩色日志插件 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+    <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
 
     <!-- 日志在工程中的输出位置 -->
-    <property name="LOG_FILE" value="${BUILD_FOLDER:-build}/${appName}"/>
-
-    <!-- 控制台的日志输出样式 -->
-    <property name="CONSOLE_LOG_PATTERN" value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
-
+    <property name="LOG_PATH" value="${LOG_PATH:- }"/>
+    <property name="CONSOLE_LOG_PATTERN" value="[%yellow(%d{HH:mm:ss}) [traceId-%X{traceId}] [spanId-%X{spanId}] [parentSpanId-%X{parentSpanId}] %clr(%p) %boldBlue(%.10t)] %clr(%C{39}){cyan} %boldMagenta(%M): %m%n%wEx"/>
+    <!-- 输出到文件日志格式 -->
+    <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [traceId-%X{traceId}] [spanId-%X{spanId}] [parentSpanId-%X{parentSpanId}] [%thread] %-5level %logger{50} - %msg%n"/>
     <!-- 控制台输出 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
@@ -26,7 +29,7 @@
 
     <!--logstash配置-->
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>139.159.140.61:5670</destination>
+        <destination>1.94.58.243:5678</destination>
         <!-- 日志输出编码 -->
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
             <providers>
@@ -49,10 +52,44 @@
         </encoder>
         <!--<encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>-->
     </appender>
+    <!-- 全量日志 -->
+    <appender name="FILE_ALL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <file>${LOG_PATH}/all.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/all.log.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+            <maxFileSize>${LOG_FILE_MAX_SIZE:-50MB}</maxFileSize>
+            <maxHistory>${LOG_FILE_MAX_HISTORY:-0}</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!-- 错误日志 -->
+    <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <file>${LOG_PATH}/err.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/err.log.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+            <maxFileSize>${LOG_FILE_MAX_SIZE:-50MB}</maxFileSize>
+            <maxHistory>${LOG_FILE_MAX_HISTORY:-0}</maxHistory>
+        </rollingPolicy>
+        <!-- 过滤出ERROR级别的日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
 
     <root level="INFO">
         <appender-ref ref="LOGSTASH"/>
         <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE_ALL" />
+        <appender-ref ref="FILE_ERROR" />
     </root>
 
 </configuration>

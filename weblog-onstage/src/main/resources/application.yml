@@ -54,10 +54,10 @@ knife4j:
     # Basic认证密码
     password: AIRSREN(AEN(໛ໜໝໞ)
 
-#logging:
-#  file:
-#    #日志保存到项目路径下的log文件夹里面
-#    path: classpath:log/onstage.log
+logging:
+  file:
+    #日志保存到项目路径下的log文件夹里面
+    path: E:/LEI/web-blog/log
 jwt:
   tokenHeader: Authorization #JWT存储的请求头
   secret: lyp_dsb #JWT加解密使用的密钥

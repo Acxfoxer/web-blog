@@ -1,20 +1,26 @@
 package com.lee.onstage.config;
 
 
+import com.lee.onstage.interceptor.TraceIdInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
+
+import javax.annotation.Resource;
 
 @Configuration
 @EnableWebMvc
 @EnableSwagger2WebMvc
 public class WebConfig implements WebMvcConfigurer {
+    @Resource
+    private TraceIdInterceptor traceIdInterceptor;
     //解决  No mapping for GET /favicon.ico 访问静态资源图标
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -42,5 +48,10 @@ public class WebConfig implements WebMvcConfigurer {
         corsConfigurationSource.registerCorsConfiguration("/**",config);
         //3. 返回新的CorsFilter
         return new CorsFilter(corsConfigurationSource);
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(traceIdInterceptor).addPathPatterns("/**");
     }
 }
