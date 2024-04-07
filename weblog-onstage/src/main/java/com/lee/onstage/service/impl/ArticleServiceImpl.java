@@ -8,12 +8,10 @@ import com.lee.onstage.constants.RedisConstant;
 import com.lee.onstage.entity.Article;
 import com.lee.onstage.mapper.ArticleMapper;
 import com.lee.onstage.model.dto.PageParamDto;
-import com.lee.onstage.model.vo.ArticleBackVO;
-import com.lee.onstage.model.vo.ArticleHomeVO;
-import com.lee.onstage.model.vo.ArticleRecommendVO;
-import com.lee.onstage.model.vo.PageResult;
+import com.lee.onstage.model.vo.*;
 import com.lee.onstage.service.ArticleService;
 import com.lee.onstage.utils.MyRedisCache;
+import com.lee.onstage.utils.PageUtils;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -69,6 +67,21 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         }
 
     }
+
+    /**
+     * 获得文章归档数据结果
+     * @param pageParamDto 查询条件
+     * @return
+     */
+    @Override
+    public PageResult<ArchiveVO> getArchiveVO(PageParamDto pageParamDto) {
+        Long articleTotalCount = articleMapper.selectCount(new LambdaQueryWrapper<Article>()
+                .eq(Article::getIsDelete, CommonConstant.FALSE)
+                .eq(Article::getStatus, ArticleConstants.PUBLIC.getCode()));
+        List<ArchiveVO> archiveVOList = articleMapper.selectArchiveVO(PageUtils.getLimit(pageParamDto),PageUtils.getSize(pageParamDto));
+        return new PageResult<>(archiveVOList,articleTotalCount);
+    }
+
 
 
     /**

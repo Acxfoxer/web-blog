@@ -319,8 +319,9 @@ public class MyRedisCache {
      * @param key
      * @return
      */
-    public Map getHashAll(String key) {
-        return redisTemplate.opsForHash().entries(key);
+    public <T> Map<String,T> getHashAll(String key) {
+        HashOperations<String, String, T> stringObjectObjectHashOperations = redisTemplate.opsForHash();
+        return stringObjectObjectHashOperations.entries(key);
     }
 
     /**

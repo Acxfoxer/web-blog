@@ -3,10 +3,23 @@
 <mapper namespace="com.lee.onstage.mapper.CategoryMapper">
 
     <select id="selectCategoryVOList" resultType="com.lee.onstage.model.vo.CategoryVO">
-        select id ,category_name,count(a.id) as article_count
+        select cate.id ,cate.category_name,count(a.id) as article_count
         from t_category cate left join(select id,category_id from t_article where is_delete = 0 and `status` =1) a on
         a.category_id=cate.id
         group by cate.id
+    </select>
+    <select id="selectCategoryBackVo" resultType="com.lee.onstage.model.vo.CategoryBackVO">
+        select tc.id,tc.category_name,count(ta.id) as article_count,tc.create_time from t_category tc
+        left join t_article ta
+        on ta.category_id = tc.id
+        <where>
+            <if test="keyword!=null and keyword !=''">
+                category_name=#{keyword}
+            </if>
+        </where>
+        group by tc.id
+        order by tc.id desc
+        Limit #{limit},#{size}
     </select>
 </mapper>
 

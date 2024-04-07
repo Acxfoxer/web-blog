@@ -39,7 +39,7 @@ export interface ResponseResult<T> {
   /**
     * id
     */
-  code:number;
+  code: number;
   /**
    *  信息uuid
    */

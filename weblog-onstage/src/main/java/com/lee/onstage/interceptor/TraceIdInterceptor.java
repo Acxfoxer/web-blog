@@ -1,7 +1,5 @@
 package com.lee.onstage.interceptor;
 
-import cn.hutool.core.util.IdUtil;
-import com.alibaba.ttl.TransmittableThreadLocal;
 import com.lee.onstage.constants.CommonConstant;
 import com.lee.onstage.utils.LogMDCContext;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +10,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 @Component
 @Slf4j
@@ -42,13 +39,17 @@ public class TraceIdInterceptor implements HandlerInterceptor {
         if(StringUtils.isBlank(objectJson)){
             LogMDCContext.parseContext(objectJson);
         }
+        LogMDCContext.initContext(request);
+        MDC.put(CommonConstant.TRACE_ID,LogMDCContext.getContext().getTraceId());
+        MDC.put(CommonConstant.SPAN_ID,LogMDCContext.getContext().getSpanId());
+        MDC.put(CommonConstant.PARENT_SPAN_ID,LogMDCContext.getContext().getParentSpanId());
+        MDC.put(CommonConstant.IP,LogMDCContext.getContext().getIp());
         return true;
     }
 
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        MDC.remove(CommonConstant.TRACE_ID);
         MDC.clear();
     }
 }

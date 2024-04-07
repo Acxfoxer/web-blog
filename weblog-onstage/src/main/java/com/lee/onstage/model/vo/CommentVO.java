@@ -20,7 +20,7 @@ public class CommentVO {
      * 评论id
      */
     @ApiModelProperty(value = "评论id")
-    private Long id;
+    private Integer id;
 
     /**
      * 评论用户id

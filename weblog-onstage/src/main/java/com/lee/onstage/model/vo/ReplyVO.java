@@ -12,7 +12,7 @@ import java.util.Date;
  * @author ican
  **/
 @Data
-@ApiModel(description = "回复VO")
+@ApiModel(description = "评论回复")
 public class ReplyVO {
 
     /**

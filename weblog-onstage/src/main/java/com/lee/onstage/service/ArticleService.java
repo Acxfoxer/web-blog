@@ -3,6 +3,7 @@ package com.lee.onstage.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lee.onstage.entity.Article;
 import com.lee.onstage.model.dto.PageParamDto;
+import com.lee.onstage.model.vo.ArchiveVO;
 import com.lee.onstage.model.vo.ArticleHomeVO;
 import com.lee.onstage.model.vo.ArticleRecommendVO;
 import com.lee.onstage.model.vo.PageResult;
@@ -28,5 +29,12 @@ public interface ArticleService extends IService<Article> {
      * @return
      */
     List<ArticleRecommendVO> getRecommend();
+
+    /**
+     * 查看归档文章
+     * @param pageParamDto 查询条件
+     * @return
+     */
+    PageResult<ArchiveVO> getArchiveVO(PageParamDto pageParamDto);
 }
 

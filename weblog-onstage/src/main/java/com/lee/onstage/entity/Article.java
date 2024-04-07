@@ -83,6 +83,7 @@ public class Article implements Serializable {
      */
     private Date updateTime;
 
+    private Integer viewCount;
 
 }
 

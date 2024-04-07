@@ -5,6 +5,7 @@ import com.lee.onstage.entity.Category;
 import com.lee.onstage.model.vo.CategoryBackVO;
 import com.lee.onstage.model.vo.CategoryVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,5 +19,7 @@ import java.util.List;
 public interface CategoryMapper extends BaseMapper<Category> {
 
     List<CategoryVO> selectCategoryVOList();
+
+    List<CategoryBackVO> selectCategoryBackVo(@Param("limit") int limit,@Param("size") Integer size, @Param("keyword") String keyword);
 }
 

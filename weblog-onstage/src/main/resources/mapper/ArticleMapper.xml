@@ -172,4 +172,8 @@
         ORDER BY a.is_top DESC,
                  a.id DESC
     </select>
+    <select id="selectArchiveVO" resultType="com.lee.onstage.model.vo.ArchiveVO">
+        select id,article_title,article_cover,create_time from t_article
+        limit #{limit},#{size}
+    </select>
 </mapper>

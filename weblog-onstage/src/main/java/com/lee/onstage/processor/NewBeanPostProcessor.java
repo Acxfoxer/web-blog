@@ -11,6 +11,8 @@ import java.util.concurrent.Executors;
 
 /**
  * 对多线程用TtlExecutors进行装饰
+ * @Author Acxfoxer
+ *
  */
 @Configuration
 @Slf4j

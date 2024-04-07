@@ -2,7 +2,10 @@ package com.lee.onstage.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lee.onstage.entity.Comment;
-import com.lee.onstage.result.ResponseResult;
+import com.lee.onstage.model.dto.PageParamDto;
+import com.lee.onstage.model.vo.CommentVO;
+import com.lee.onstage.model.vo.PageResult;
+import com.lee.onstage.model.vo.RecentCommentVO;
 
 import java.util.List;
 
@@ -17,8 +20,9 @@ public interface CommentService extends IService<Comment> {
     /**
      * 获取最近的评论数
      * @return
-     * @param <T>
      */
-    <T> ResponseResult<? extends List<? extends Comment>> getRecentComments();
+    List<RecentCommentVO> listRecentComments();
+
+    PageResult<CommentVO> listCommentsByArticleId(PageParamDto pageParamDto);
 }
 

@@ -2,6 +2,12 @@ package com.lee.onstage.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lee.onstage.entity.Tag;
+import com.lee.onstage.model.dto.PageParamDto;
+import com.lee.onstage.model.vo.PageResult;
+import com.lee.onstage.model.vo.TagBackVO;
+import com.lee.onstage.model.vo.TagVO;
+
+import java.util.List;
 
 /**
  * (Tag)表服务接口
@@ -11,5 +17,8 @@ import com.lee.onstage.entity.Tag;
  */
 public interface TagService extends IService<Tag> {
 
+    PageResult<TagBackVO> listTagBackVO(PageParamDto pageParamDto);
+
+    List<TagVO> listTagVO();
 }
 

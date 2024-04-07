@@ -3,6 +3,7 @@ package com.lee.onstage.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lee.onstage.entity.Article;
 import com.lee.onstage.model.dto.PageParamDto;
+import com.lee.onstage.model.vo.ArchiveVO;
 import com.lee.onstage.model.vo.ArticleBackVO;
 import com.lee.onstage.model.vo.ArticleHomeVO;
 import com.lee.onstage.model.vo.ArticleStatisticsVO;
@@ -31,5 +32,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
     List<ArticleStatisticsVO> selectArticleStatistics();
 
     List<ArticleHomeVO> selectArticleHomeList(Integer limit, Integer size);
+
+    List<ArchiveVO> selectArchiveVO(@Param("limit") int limit, @Param("size") Integer size);
 }
 

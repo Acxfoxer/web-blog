@@ -5,5 +5,23 @@
     <select id="selectTagList" resultType="com.lee.onstage.model.vo.TagOptionVO">
     select id ,tag_name from t_tag;
     </select>
+    <select id="selectTagBackVo" resultType="com.lee.onstage.model.vo.TagBackVO">
+        select t.id,t.tagName,count(tat.article_id) as article_count ,t.create_time from t_tag t
+        left join t_article_tag tat
+        on t.id=tat.tag_id
+        <where>
+            <if test="keyword!=null and keyword!=''">
+                tag_name=#{keyword}
+            </if>
+        </where>
+        group by t.id
+        order by t.id desc
+        limit #{limit},#{size}
+    </select>
+    <select id="selectTagVOList" resultType="com.lee.onstage.model.vo.TagVO">
+        select t.id,t.tag_name ,count(ta.id) as article_count from t_tag t
+        left join t_article_tag ta on t.id=ta.tag_id
+        group by t.id
+        order by t.id desc
+    </select>
 </mapper>
-

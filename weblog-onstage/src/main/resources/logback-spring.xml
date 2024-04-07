@@ -12,9 +12,9 @@
 
     <!-- 日志在工程中的输出位置 -->
     <property name="LOG_PATH" value="${LOG_PATH:- }"/>
-    <property name="CONSOLE_LOG_PATTERN" value="[%yellow(%d{HH:mm:ss}) [traceId-%X{traceId}] [spanId-%X{spanId}] [parentSpanId-%X{parentSpanId}] %clr(%p) %boldBlue(%.10t)] %clr(%C{39}){cyan} %boldMagenta(%M): %m%n%wEx"/>
+    <property name="CONSOLE_LOG_PATTERN" value="[%yellow(%d{HH:mm:ss}) [IP-%X{ip}] [traceId-%X{traceId}] [spanId-%X{spanId}] [parentSpanId-%X{parentSpanId}] %clr(%p) %boldBlue(%.10t)] %clr(%C{39}){cyan} %boldMagenta(%M): %m%n%wEx"/>
     <!-- 输出到文件日志格式 -->
-    <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [traceId-%X{traceId}] [spanId-%X{spanId}] [parentSpanId-%X{parentSpanId}] [%thread] %-5level %logger{50} - %msg%n"/>
+    <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [IP-%X{ip}] [traceId-%X{traceId}] [spanId-%X{spanId}] [parentSpanId-%X{parentSpanId}] [%thread] %-5level %logger{50} - %msg%n"/>
     <!-- 控制台输出 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
