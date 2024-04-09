@@ -3,6 +3,7 @@ package com.lee.onstage;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.UUID;
+import com.lee.onstage.constants.RedisConstant;
 import com.lee.onstage.strategy.StrategyContext;
 import com.lee.onstage.strategy.impl.MyStrategyAdd;
 import com.lee.onstage.strategy.impl.MyStrategyDivision;
@@ -53,8 +54,8 @@ public class OnStageApplicationTest {
     }
     @Test
     void redisTest(){
-        Long test = redisTemplate.opsForSet().add("test", "123");
-        Set<Object> test1 = redisTemplate.opsForSet().members("test");
+        double s = redisTemplate.opsForZSet().incrementScore(RedisConstant.ARTICLE_VIEW_COUNT, 64241, 1d);
+        System.out.println(s);
     }
 
     /**

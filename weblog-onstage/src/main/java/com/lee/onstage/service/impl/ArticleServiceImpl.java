@@ -7,6 +7,7 @@ import com.lee.onstage.constants.CommonConstant;
 import com.lee.onstage.constants.RedisConstant;
 import com.lee.onstage.entity.Article;
 import com.lee.onstage.mapper.ArticleMapper;
+import com.lee.onstage.mapperStruct.ArticleConvertMapper;
 import com.lee.onstage.model.dto.PageParamDto;
 import com.lee.onstage.model.vo.*;
 import com.lee.onstage.service.ArticleService;
@@ -15,6 +16,7 @@ import com.lee.onstage.utils.PageUtils;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -29,6 +31,7 @@ import java.util.stream.Collectors;
  */
 @Service("articleService")
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
+    private static final Integer DEFAULT=0;
     @Resource
     private MyRedisCache redisCache;
     @Resource
@@ -82,6 +85,66 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return new PageResult<>(archiveVOList,articleTotalCount);
     }
 
+    @Override
+    public ArticleVO getArticleVO(String articleId) {
+        //db 查询articleVO
+        ArticleVO articleVO = articleMapper.selectArticleVO(articleId);
+        if(articleVO==null){
+            return null;
+        }
+        //浏览量加一
+        int viewCount = Integer.parseInt(redisCache.incrZSet(RedisConstant.ARTICLE_VIEW_COUNT, articleId, 1d).toString());
+        //获取点赞量
+        int likeCount = getCacheCount(RedisConstant.ARTICLE_Like_COUNT,articleId,articleVO.getLikeCount());
+        //获取收藏量
+        int collectCount = getCacheCount(RedisConstant.ARTICLE_COLLECTION,articleId,articleVO.getCollectCount());
+        compareAndUpdateDB(articleVO,likeCount,collectCount);
+        articleVO.setViewCount(viewCount);
+        articleVO.setLikeCount(likeCount);
+        articleVO.setCollectCount(collectCount);
+        //获取上一篇文章
+        ArticlePaginationVO preArticle = articleMapper.selectPreArticle(articleId);
+        //获取下一篇文章
+        ArticlePaginationVO postArticle = articleMapper.selectPostArticle(articleId);
+        articleVO.setPreArticle(preArticle);
+        articleVO.setPostArticle(postArticle);
+        return articleVO;
+    }
+
+    /**
+     * 比较并更新db中的值
+     * @param articleVO
+     * @param likeCount
+     * @param collectCount
+     */
+    @Transactional
+    public void compareAndUpdateDB(ArticleVO articleVO, int likeCount, int collectCount) {
+        Article article = ArticleConvertMapper.INSTANCE.toArticle(articleVO);
+        if(articleVO.getLikeCount()!=likeCount){
+            article.setLikeCount(likeCount);
+        }
+        if(articleVO.getCollectCount()!=collectCount){
+            article.setCollectCount(collectCount);
+        }
+        articleMapper.updateById(article);
+    }
+
+    /**
+     * 获取缓存中缓存的值
+     * @param key
+     * @param articleId
+     * @param dbCount
+     * @return
+     */
+    private int getCacheCount(String key, String articleId,Integer dbCount) {
+        double cacheZSetScore = redisCache.getCacheZSetScore(key, articleId);
+        int compareDBResCount= dbCount==null?DEFAULT:dbCount;
+        if(cacheZSetScore==0){
+            redisCache.setCacheZSet(key,articleId,compareDBResCount);
+            return compareDBResCount;
+        }
+        return (int)cacheZSetScore;
+    }
 
 
     /**

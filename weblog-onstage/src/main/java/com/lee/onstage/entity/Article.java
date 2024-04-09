@@ -28,7 +28,7 @@ public class Article implements Serializable {
     /**
      * 文章id
      */
-    private Long id;
+    private Integer id;
     /**
      * 作者id
      */
@@ -82,8 +82,18 @@ public class Article implements Serializable {
      * 更新时间
      */
     private Date updateTime;
-
+    /**
+     * 浏览量
+     */
     private Integer viewCount;
+    /**
+     * 点赞量
+     */
+    private Integer likeCount;
+    /**
+     * 收藏量
+     */
+    private Integer collectCount;
 
 }
 

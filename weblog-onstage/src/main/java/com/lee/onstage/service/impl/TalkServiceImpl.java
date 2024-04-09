@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 import static com.lee.onstage.constants.RedisConstant.*;
 /**
@@ -43,10 +45,9 @@ public class TalkServiceImpl extends ServiceImpl<TalkMapper, Talk> implements Ta
         //分页查询
         List<TalkVO> talkVOList = talkMapper.selectTalkList((current-1)*size,size);
         //获取点赞量
-        long likeCount = Long.parseLong(redisCache.getObject(TALK_LIKE_COUNT).toString());
+        long likeCount = (long) Optional.ofNullable(redisCache.getObject(TALK_LIKE_COUNT)).orElse(0L);
         //获取评论量
-        long commentCount= Long.parseLong(redisCache.getObject(COMMENT_LIKE_COUNT).toString());
-
+        long commentCount= (long) Optional.ofNullable(redisCache.getObject(COMMENT_LIKE_COUNT)).orElse(0L);
         return  new PageResult<>(talkVOList,totalCount);
     }
 }

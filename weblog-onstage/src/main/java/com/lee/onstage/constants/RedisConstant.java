@@ -30,7 +30,7 @@ public class RedisConstant {
     /**
      * 文章点赞量
      */
-    public static final String ARTICLE_CLICK_COUNT = "blog:article_click_count";
+    public static final String ARTICLE_Like_COUNT = "blog:article_click_count";
     /**
      * 文章收藏数
      */

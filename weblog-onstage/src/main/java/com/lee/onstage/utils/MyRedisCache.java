@@ -228,7 +228,21 @@ public class MyRedisCache {
                 .collect(Collectors.toMap(ZSetOperations.TypedTuple::getValue, ZSetOperations.TypedTuple::getScore));
     }
 
+    /**
+     * 获取zset的所有集合
+     * @param key
+     * @return
+     * @param <T>
+     */
+    public <T> Map<Object,Double> getCacheZSetWith(final String key){
+        return Objects.requireNonNull(redisTemplate.opsForZSet().rangeWithScores(key, 0,-1))
+                .stream()
+                .collect(Collectors.toMap(ZSetOperations.TypedTuple::getValue, ZSetOperations.TypedTuple::getScore));
+    }
 
+    public Double getCacheZSetScore(final String key, final String value){
+        return redisTemplate.opsForZSet().score(key,value);
+    }
 
     /**
      * 缓存Map
@@ -333,5 +347,9 @@ public class MyRedisCache {
      */
     public <T> Boolean hasSetValue(String key,T value){
         return redisTemplate.opsForSet().isMember(key,value);
+    }
+
+    public <T> Double incrZSet(@NotNull String key, @NotNull T value,@NotNull double v) {
+        return redisTemplate.opsForZSet().incrementScore(key,value,v);
     }
 }

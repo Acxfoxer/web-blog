@@ -2,15 +2,13 @@ package com.lee.onstage.controller;
 
 import com.lee.onstage.annotation.VisitLogger;
 import com.lee.onstage.model.dto.PageParamDto;
-import com.lee.onstage.model.vo.ArchiveVO;
-import com.lee.onstage.model.vo.ArticleHomeVO;
-import com.lee.onstage.model.vo.ArticleRecommendVO;
-import com.lee.onstage.model.vo.PageResult;
+import com.lee.onstage.model.vo.*;
 import com.lee.onstage.result.ResponseResult;
 import com.lee.onstage.service.ArticleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,5 +40,12 @@ public class ArticleController {
     @GetMapping("/archives/list")
     public ResponseResult<PageResult<ArchiveVO>> listArchiveVO(@NotNull PageParamDto pageParamDto){
         return ResponseResult.success(articleService.getArchiveVO(pageParamDto));
+    }
+
+    @VisitLogger("查看文章")
+    @ApiOperation(value = "查看文章")
+    @GetMapping("/{id}")
+    public ResponseResult<ArticleVO> getArticleById(@PathVariable("id")String articleId){
+        return ResponseResult.success(articleService.getArticleVO(articleId));
     }
 }

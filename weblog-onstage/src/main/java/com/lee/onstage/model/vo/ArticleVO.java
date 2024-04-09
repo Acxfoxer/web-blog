@@ -59,6 +59,13 @@ public class ArticleVO {
     private Integer likeCount;
 
     /**
+     * 点赞量
+     */
+    @ApiModelProperty(value = "收藏量")
+    private Integer collectCount;
+
+
+    /**
      * 文章分类
      */
     @ApiModelProperty(value = "文章分类")
@@ -74,13 +81,13 @@ public class ArticleVO {
      * 上一篇文章
      */
     @ApiModelProperty(value = "上一篇文章")
-    private ArticlePaginationVO lastArticle;
+    private ArticlePaginationVO preArticle;
 
     /**
      * 下一篇文章
      */
     @ApiModelProperty(value = "下一篇文章")
-    private ArticlePaginationVO nextArticle;
+    private ArticlePaginationVO postArticle;
 
     /**
      * 发表时间

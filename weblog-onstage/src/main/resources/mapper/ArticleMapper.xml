@@ -176,4 +176,30 @@
         select id,article_title,article_cover,create_time from t_article
         limit #{limit},#{size}
     </select>
+    <select id="selectByArticleId" resultType="com.lee.onstage.model.vo.ArticleVO">
+        select id,article_cover,article_title,article_content,article_type,view
+    </select>
+    <select id="selectArticleVO" resultType="com.lee.onstage.model.vo.ArticleVO" resultMap="articleVO">
+        SELECT a.*,
+               c.category_name,
+               t.id AS tag_id,
+               t.tag_name
+        FROM t_article a
+                 INNER JOIN t_category c ON a.category_id = c.id
+                 INNER JOIN t_article_tag tat ON a.id = tat.article_id
+                 INNER JOIN t_tag t ON tat.tag_id = t.id
+        WHERE is_delete = 0
+          AND `status` = 1
+          AND a.id = #{articleId}
+    </select>
+    <select id="selectPreArticle" resultType="com.lee.onstage.model.vo.ArticlePaginationVO">
+        select id,article_cover,article_title from t_article
+        where is_delete = 0 and `status` = 1 and id &lt; #{articleId}
+        order by id desc limit 1
+    </select>
+    <select id="selectPostArticle" resultType="com.lee.onstage.model.vo.ArticlePaginationVO">
+        select id,article_cover,article_title from t_article
+        where is_delete = 0 and `status` = 1 and id &gt; #{articleId}
+        order by id asc limit 1
+    </select>
 </mapper>
