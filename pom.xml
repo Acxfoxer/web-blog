@@ -41,6 +41,7 @@
 <!--       <jasypt.version>3.0.5</jasypt.version>-->
         <idaas.version>1.0.0</idaas.version>
         <ttl.version>2.14.2</ttl.version>
+        <mapStruct.version>1.5.5.Final</mapStruct.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -179,6 +180,16 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>transmittable-thread-local</artifactId>
                 <version>${ttl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapStruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapStruct.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
