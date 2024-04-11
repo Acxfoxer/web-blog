@@ -7,7 +7,7 @@ import com.lee.onstage.constants.CommonConstant;
 import com.lee.onstage.constants.RedisConstant;
 import com.lee.onstage.entity.Article;
 import com.lee.onstage.mapper.ArticleMapper;
-import com.lee.onstage.mapperStruct.ArticleConvertMapper;
+import com.lee.onstage.mapStruct.ArticleConvertMapper;
 import com.lee.onstage.model.dto.PageParamDto;
 import com.lee.onstage.model.vo.*;
 import com.lee.onstage.service.ArticleService;
@@ -43,30 +43,29 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * S(Users) = 1*click + 5*favor + 10*comment + 20*share
      * 点击,收藏,分享,评论
      * 默认代码计算结果取前十条
-     * @return
+     * @return List<ArticleRecommendVO>
      */
     @ApiOperation("查询")
     @Override
     public List<ArticleRecommendVO> getRecommend() {
         //查询redis中热门文章最高的文章id
-        Set<Long> cacheZSet = redisCache.getCacheZSet(RedisConstant.HOT_KEY, 0, -1);
+        Set<Object> cacheZSet = redisCache.getCacheZSet(RedisConstant.HOT_KEY, 0, -1);
         if(cacheZSet.size()>0){
+            List<Long> articleIds = cacheZSet.stream().map(item -> Long.parseLong(cacheZSet.toString())).collect(Collectors.toList());
             //存在直接根据id查询
-            List<Article> articles = articleMapper.selectBatchIds(cacheZSet);
-            List<ArticleRecommendVO> articleRecommendVOS = articles.stream().map(item -> {
+            List<Article> articles = articleMapper.selectBatchIds(articleIds);
+            return articles.stream().map(item -> {
                 ArticleRecommendVO articleRecommendVO = new ArticleRecommendVO();
                 BeanUtils.copyProperties(item, articleRecommendVO);
                 return articleRecommendVO;
             }).collect(Collectors.toList());
-            return articleRecommendVOS;
         }else {
             List<ArticleBackVO> articles = articleMapper.selectAll();
-            List<ArticleRecommendVO> collect = articles.stream().map(item -> {
+            return articles.stream().map(item -> {
                 ArticleRecommendVO articleRecommendVO = new ArticleRecommendVO();
                 BeanUtils.copyProperties(item, articleRecommendVO);
                 return articleRecommendVO;
             }).collect(Collectors.toList());
-            return collect;
         }
 
     }
@@ -74,7 +73,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     /**
      * 获得文章归档数据结果
      * @param pageParamDto 查询条件
-     * @return
+     * @return PageResult<ArchiveVO>
      */
     @Override
     public PageResult<ArchiveVO> getArchiveVO(PageParamDto pageParamDto) {
@@ -93,7 +92,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             return null;
         }
         //浏览量加一
-        int viewCount = Integer.parseInt(redisCache.incrZSet(RedisConstant.ARTICLE_VIEW_COUNT, articleId, 1d).toString());
+        int viewCount = redisCache.incrZSet(RedisConstant.ARTICLE_VIEW_COUNT, articleId, 1d).intValue();
         //获取点赞量
         int likeCount = getCacheCount(RedisConstant.ARTICLE_Like_COUNT,articleId,articleVO.getLikeCount());
         //获取收藏量
@@ -113,17 +112,17 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     /**
      * 比较并更新db中的值
-     * @param articleVO
-     * @param likeCount
-     * @param collectCount
+     * @param articleVO 返回文章VO
+     * @param likeCount 点赞数
+     * @param collectCount 收藏数
      */
     @Transactional
     public void compareAndUpdateDB(ArticleVO articleVO, int likeCount, int collectCount) {
         Article article = ArticleConvertMapper.INSTANCE.toArticle(articleVO);
-        if(articleVO.getLikeCount()!=likeCount){
+        if(articleVO.getLikeCount()!=null&&articleVO.getLikeCount()!=likeCount){
             article.setLikeCount(likeCount);
         }
-        if(articleVO.getCollectCount()!=collectCount){
+        if(articleVO.getCollectCount()!=null&&articleVO.getCollectCount()!=collectCount){
             article.setCollectCount(collectCount);
         }
         articleMapper.updateById(article);
@@ -131,10 +130,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     /**
      * 获取缓存中缓存的值
-     * @param key
-     * @param articleId
-     * @param dbCount
-     * @return
+     * @param key  key
+     * @param articleId  文章id
+     * @param dbCount  数据库中值
+     * @return int
      */
     private int getCacheCount(String key, String articleId,Integer dbCount) {
         double cacheZSetScore = redisCache.getCacheZSetScore(key, articleId);
@@ -149,8 +148,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     /**
      * 分页查询
-     * @param
-     * @return
+     * @param param 分页查询参数
+     * @return PageResult<ArticleHomeVO> 分页查询结果
      */
     @Override
     public PageResult<ArticleHomeVO> getArticleList(PageParamDto param) {
