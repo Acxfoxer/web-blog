@@ -184,12 +184,13 @@ public class MyRedisCache {
 
     /**
      * 获取zset的降序排列
+     *
      * @param key
      * @param beginIndex
      * @param endIndex
      * @return
      */
-    public Set getCacheZSet(final String key,int beginIndex,int endIndex)
+    public Set<Object> getCacheZSet(final String key, int beginIndex, int endIndex)
     {
         return redisTemplate.opsForZSet().reverseRange(key,beginIndex,endIndex);
     }
