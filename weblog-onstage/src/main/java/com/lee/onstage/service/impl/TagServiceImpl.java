@@ -3,14 +3,14 @@ package com.lee.onstage.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lee.onstage.entity.Tag;
+import com.lee.onstage.mapper.ArticleMapper;
 import com.lee.onstage.mapper.TagMapper;
 import com.lee.onstage.model.dto.PageParamDto;
-import com.lee.onstage.model.vo.PageResult;
-import com.lee.onstage.model.vo.TagBackVO;
-import com.lee.onstage.model.vo.TagVO;
+import com.lee.onstage.model.vo.*;
 import com.lee.onstage.result.ResponseResult;
 import com.lee.onstage.service.TagService;
 import com.lee.onstage.utils.MyRedisCache;
+import com.lee.onstage.utils.PageUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -31,6 +31,8 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
     @Resource
     private MyRedisCache redisCache;
 
+    @Resource
+    private ArticleMapper articleMapper;
     @Override
     public PageResult<TagBackVO> listTagBackVO(PageParamDto pageParamDto) {
         //获取标签数量
@@ -43,6 +45,18 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
     @Override
     public List<TagVO> listTagVO() {
         return tagMapper.selectTagVOList();
+    }
+
+    @Override
+    public ArticleConditionList listArticleVOByTag(PageParamDto pageParamDto) {
+        List<ArticleConditionVO> articleConditionVOList =articleMapper.listArticleVOByTag(PageUtils.getLimit(pageParamDto),
+                    PageUtils.getSize(pageParamDto),
+                    pageParamDto);
+        String tagName = tagMapper.selectById(pageParamDto.getTagId()).getTagName();
+        return ArticleConditionList.builder()
+                .articleConditionVOList(articleConditionVOList)
+                .name(tagName)
+                .build();
     }
 }
 

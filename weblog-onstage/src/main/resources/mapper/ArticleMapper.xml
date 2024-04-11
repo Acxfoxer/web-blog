@@ -174,7 +174,7 @@
     </select>
     <select id="selectArchiveVO" resultType="com.lee.onstage.model.vo.ArchiveVO">
         select id,article_title,article_cover,create_time from t_article
-        limit #{limit},#{size}
+        limit #{lim it},#{size}
     </select>
     <select id="selectByArticleId" resultType="com.lee.onstage.model.vo.ArticleVO">
         select id,article_cover,article_title,article_content,article_type,view
@@ -201,5 +201,23 @@
         select id,article_cover,article_title from t_article
         where is_delete = 0 and `status` = 1 and id &gt; #{articleId}
         order by id asc limit 1
+    </select>
+    <select id="listArticleVOByTag" resultType="com.lee.onstage.model.vo.ArticleConditionVO" resultMap="articleConditionVO">
+        select  a.id,a.article_cover,a.article_title,a.create_time,tc.id as category_id,
+                tc.category_name, tt.id as tag_id, tt.tag_name from t_article a
+        inner join t_category tc on tc.id=a.category_id
+        inner join t_article_tag tat on tat.article_id=a.id
+        inner join t_tag tt on tt.id =tat.tag_id
+        <where>
+            a.is_delete=0 and `status`=1
+            <if test="paramDto.categoryId !=null and paramDto.categoryId !=''">
+                and a.category_id=#{paramDto.categoryId}
+            </if>
+            <if test="paramDto.tagId !=null and paramDto.tagId!=''">
+                and tag_id=#{paramDto.tagId}
+            </if>
+        </where>
+        order by a.id desc
+        limit #{limit},#{size}
     </select>
 </mapper>

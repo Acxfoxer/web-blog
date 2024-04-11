@@ -2,9 +2,7 @@ package com.lee.onstage.controller;
 
 import com.lee.onstage.annotation.VisitLogger;
 import com.lee.onstage.model.dto.PageParamDto;
-import com.lee.onstage.model.vo.PageResult;
-import com.lee.onstage.model.vo.TagBackVO;
-import com.lee.onstage.model.vo.TagVO;
+import com.lee.onstage.model.vo.*;
 import com.lee.onstage.result.ResponseResult;
 import com.lee.onstage.service.TagService;
 import io.swagger.annotations.ApiOperation;
@@ -31,5 +29,12 @@ public class TagController {
     @GetMapping("/tag/list")
     public ResponseResult<List<TagVO>> listTagVO(){
         return ResponseResult.success(tagService.listTagVO());
+    }
+
+    @VisitLogger("查看对应标签的文章")
+    @ApiOperation(value = "查看该标签下的文章")
+    @GetMapping("/tag/article")
+    public ResponseResult<ArticleConditionList> listArticleVOByTag(PageParamDto pageParamDto){
+        return ResponseResult.success(tagService.listArticleVOByTag(pageParamDto));
     }
 }

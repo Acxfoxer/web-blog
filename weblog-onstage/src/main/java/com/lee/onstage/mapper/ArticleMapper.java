@@ -49,5 +49,13 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @return
      */
     ArticlePaginationVO selectPostArticle(String articleId);
+
+    /**
+     * 根据tagId跳转查询对应文章
+     * @param limit
+     * @param size
+     * @return
+     */
+    List<ArticleConditionVO> listArticleVOByTag(@Param("limit") int limit, @Param("size") int size, @Param("paramDto") PageParamDto paramDto);
 }
 
