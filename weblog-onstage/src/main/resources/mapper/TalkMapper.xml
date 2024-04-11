@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lee.onstage.mapper.TalkMapper">
+
+
+    <select id="selectTalkList" resultType="com.lee.onstage.model.vo.TalkVO">
+        SELECT t.id,
+               nickname,
+               avatar,
+               talk_content,
+               images,
+               t.is_top,
+               t.create_time
+        FROM t_talk t
+                 INNER JOIN t_user u ON t.user_id = u.id
+        WHERE t.status = 1
+        ORDER BY t.is_top DESC,
+                 t.id DESC
+            LIMIT #{limit}, #{size}
+    </select>
+    <select id="selectTalkById" resultType="com.lee.onstage.model.vo.TalkVO">
+        SELECT t.id,
+               nickname,
+               avatar,
+               talk_content,
+               images,
+               t.is_top,
+               t.create_time
+        FROM t_talk t
+                 INNER JOIN t_user u ON t.user_id = u.id
+        WHERE t.status = 1 and t.id=#{id}
+        ORDER BY t.is_top DESC,
+                 t.id DESC
+    </select>
+</mapper>
+

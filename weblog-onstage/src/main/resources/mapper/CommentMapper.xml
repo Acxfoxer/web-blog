@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lee.onstage.mapper.CommentMapper">
+
+    <select id="selectRecentComments" resultType="com.lee.onstage.model.vo.RecentCommentVO">
+        select tc.id,tu.nickname,tu.avatar,tc.comment_content,tc.create_time from t_comment tc
+        inner join t_user tu on tu.id=tc.from_uid
+        where is_check ='1' order by tc.create_time desc limit 5
+    </select>
+    <select id="selectParentComment" resultType="com.lee.onstage.model.vo.CommentVO">
+    select tc.id,tc.from_uid,tu.nickname as fromNickname,tu.web_site,tu.avatar,tc.comment_content,tc.create_time
+        from t_comment tc
+        inner join t_user tu
+        on tc.from_uid=tu.id
+    <where>
+        <if test="pageParamDto.typeId!=null and pageParamDto.typeId!=''">
+            tc.type_id=#{pageParamDto.typeId}
+        </if>
+        AND comment_type=#{pageParamDto.commentType}
+        AND tc.is_check= 1
+        AND tc.parent_id is null
+    </where>
+        limit #{limit},#{size}
+    </select>
+    <select id="selectChildComment" resultType="com.lee.onstage.model.vo.ReplyVO">
+        select tc.id,
+               tc.parent_id,
+               tc.from_uid,
+               tc.comment_content,
+               tc.create_time,
+               tc.to_uid,
+               tu1.avatar,
+               tu1.nickname as from_nickname,
+               tu2.nickname as to_nickname
+               from t_comment tc
+               join t_user tu1 on tu1.id=tc.from_uid
+               join t_user tu2 on tc.to_uid = tu2.id
+               where tc.is_check = 1
+               and tc.parent_id in
+        <foreach collection="parentCommentIdList" open="(" close=")" item="commentId" separator=",">
+            #{commentId}
+        </foreach>
+    </select>
+    <select id="selectReplyCount" resultType="com.lee.onstage.model.vo.ReplyCountVO">
+        select parent_id as comment_id,count(1) as reply_count from t_comment
+        where is_check='1' and parent_id in
+        <foreach collection="parentCommentIdList" open="(" close=")" item="commentId" separator=",">
+            #{commentId}
+        </foreach>
+        group by parent_id
+    </select>
+    <select id="selectCommentCountMap" resultType="com.lee.onstage.model.vo.CommentCountVO">
+        select talk_id as id,count(1) as comment_count from t_comment tc
+        left join t_talk tt on tt.id=tc.talk_id
+        where comment_type=#{commentType}
+        and comment_state=#{commentState}
+        and talk_id in
+        <foreach collection="talkIds" item="talkId" open="(" close=")" separator=",">
+            #{talkId}
+        </foreach>
+        group by talk_id
+    </select>
+</mapper>
+

@@ -2,6 +2,7 @@ package com.lee.onstage.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lee.onstage.entity.Talk;
+import com.lee.onstage.model.dto.PageParamDto;
 import com.lee.onstage.model.vo.PageResult;
 import com.lee.onstage.model.vo.TalkVO;
 
@@ -18,6 +19,8 @@ public interface TalkService extends IService<Talk>{
      * @param size
      * @return
      */
-    PageResult<TalkVO> listTalkVO(int current, int size);
+    PageResult<TalkVO> listTalkVO(PageParamDto pageParamDto);
+
+    TalkVO listTalkVOById(String id);
 }
 

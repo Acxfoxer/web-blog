@@ -38,6 +38,11 @@ public class Comment implements Serializable {
      * 父评论id
      */
     private Integer parentId;
+
+    /**
+     * 说说id
+     */
+    private Integer talkId;
     /**
      * 回复评论id
      */
@@ -67,6 +72,9 @@ public class Comment implements Serializable {
      */
     private Date updateTime;
 
-
+    /**
+     * 评论状态
+     */
+    private Integer commentStatus;
 }
 

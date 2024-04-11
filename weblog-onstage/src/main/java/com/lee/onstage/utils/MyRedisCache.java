@@ -353,4 +353,8 @@ public class MyRedisCache {
     public <T> Double incrZSet(@NotNull String key, @NotNull T value,@NotNull double v) {
         return redisTemplate.opsForZSet().incrementScore(key,value,v);
     }
+
+    public  <T> Integer getHash(String key, String id) {
+        return (Integer) redisTemplate.opsForHash().get(key,id);
+    }
 }

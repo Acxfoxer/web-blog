@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lee.onstage.entity.Talk;
 import com.lee.onstage.model.vo.TalkVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -18,11 +19,17 @@ import java.util.List;
 public interface TalkMapper extends BaseMapper<Talk> {
     /**
      * 查询列表
-     * @param current
-     * @param size
+     * @param limit 当前页数
+     * @param size  限制条数
      * @return
      */
-    @Select("select t.*,tu.avatar from t_talk t left join t_user tu on tu.id=t.user_id where t.status=1 order by is_top desc,id desc limit #{current},#{size}")
-    List<TalkVO> selectTalkList(int current, int size);
+    List<TalkVO> selectTalkList(@Param("limit") int limit, @Param("size") int size);
+
+    /**
+     * 根据id查询说说
+     * @param id 说说id
+     * @return
+     */
+    TalkVO selectTalkById(String id);
 }
 

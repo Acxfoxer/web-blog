@@ -15,7 +15,7 @@ public class CommentCountVO {
     /**
      * 类型id
      */
-    @ApiModelProperty(value = "类型id")
+    @ApiModelProperty(value = "说说id")
     private Long id;
 
     /**

@@ -8,7 +8,9 @@ import com.lee.onstage.constants.ResultCode;
 import com.lee.onstage.entity.Talk;
 import com.lee.onstage.entity.Task;
 import com.lee.onstage.mapper.TalkMapper;
+import com.lee.onstage.model.dto.PageParamDto;
 import com.lee.onstage.model.vo.PageResult;
+import com.lee.onstage.model.vo.TalkBackInfoVO;
 import com.lee.onstage.model.vo.TalkVO;
 import com.lee.onstage.result.ResponseResult;
 import com.lee.onstage.service.TalkService;
@@ -37,7 +39,13 @@ public class TalkController {
     @ApiOperation(value = "查看说说列表")
     @GetMapping("/list")
     @VisitLogger(value = "说说列表")
-    public ResponseResult<PageResult<TalkVO>> listTalkVo(@RequestParam("current") int currentPage, @RequestParam("size") int pageSize){
-        return new ResponseResult<>().success(ResultCode.SUCCESS.getValue(),ResultCode.SUCCESS.getMsg(),talkService.listTalkVO(currentPage,pageSize));
+    public ResponseResult<PageResult<TalkVO>> listTalkVo(PageParamDto pageParamDto){
+        return ResponseResult.success(talkService.listTalkVO(pageParamDto));
+    }
+    @ApiOperation("查看说说内容明细")
+    @VisitLogger("查看说说内容明细")
+    @GetMapping("/{id}")
+    public ResponseResult<TalkVO> listTalkVOById(@PathVariable("id")String id){
+        return ResponseResult.success(talkService.listTalkVOById(id));
     }
 }
