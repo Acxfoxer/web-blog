@@ -38,7 +38,6 @@
         <druid.version>1.2.15</druid.version>
         <cloud.version>2021.0.5</cloud.version>
         <yauaa.version>7.9.0</yauaa.version>
-<!--       <jasypt.version>3.0.5</jasypt.version>-->
         <idaas.version>1.0.0</idaas.version>
         <ttl.version>2.14.2</ttl.version>
         <mapStruct.version>1.5.5.Final</mapStruct.version>
@@ -190,6 +189,11 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapStruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka</artifactId>
+                <version>${kafka.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

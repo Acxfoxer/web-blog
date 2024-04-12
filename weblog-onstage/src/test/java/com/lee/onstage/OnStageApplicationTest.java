@@ -4,7 +4,7 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.UUID;
 import com.lee.onstage.constants.RedisConstant;
-import com.lee.onstage.strategy.StrategyContext;
+import com.lee.onstage.strategy.context.StrategyContext;
 import com.lee.onstage.strategy.impl.MyStrategyAdd;
 import com.lee.onstage.strategy.impl.MyStrategyDivision;
 import com.lee.onstage.strategy.impl.MyStrategyMultiply;
@@ -17,7 +17,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import javax.annotation.Resource;
 import java.util.Date;
-import java.util.Set;
 
 @SpringBootTest(classes = OnStageApp.class)
 public class OnStageApplicationTest {

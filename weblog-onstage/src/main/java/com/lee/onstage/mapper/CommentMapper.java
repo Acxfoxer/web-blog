@@ -52,7 +52,7 @@ public interface CommentMapper extends BaseMapper<Comment> {
      * @param state   说说状态: 1 公开、2 私密
      * @return
      */
-    List<CommentCountVO> selectCommentCountMap(@Param("talkIds") List<Long> talkIds, @Param("commentState") Integer state,
+    List<CommentCountVO> selectCommentCountMap(@Param("talkIds") List<Long> talkIds, @Param("commentStatus") Integer state,
                                                @Param("commentType")Integer type);
 }
 

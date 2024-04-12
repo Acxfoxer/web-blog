@@ -53,7 +53,7 @@
         select talk_id as id,count(1) as comment_count from t_comment tc
         left join t_talk tt on tt.id=tc.talk_id
         where comment_type=#{commentType}
-        and comment_state=#{commentState}
+        and comment_status=#{commentStatus}
         and talk_id in
         <foreach collection="talkIds" item="talkId" open="(" close=")" separator=",">
             #{talkId}

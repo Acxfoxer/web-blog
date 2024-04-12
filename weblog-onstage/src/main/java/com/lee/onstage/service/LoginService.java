@@ -20,4 +20,10 @@ public interface LoginService {
      * @return
      */
     ResponseResult logout();
+
+    /**
+     * 发送验证码
+     * @param email
+     */
+    void sendCode(String email);
 }

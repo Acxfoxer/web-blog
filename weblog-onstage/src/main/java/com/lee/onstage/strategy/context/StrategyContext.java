@@ -1,4 +1,6 @@
-package com.lee.onstage.strategy;
+package com.lee.onstage.strategy.context;
+
+import com.lee.onstage.strategy.MyStrategy;
 
 public class StrategyContext {
     private MyStrategy myStrategy;

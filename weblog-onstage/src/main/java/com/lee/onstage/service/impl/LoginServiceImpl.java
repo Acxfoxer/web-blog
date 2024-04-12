@@ -24,6 +24,8 @@ public class LoginServiceImpl implements LoginService {
     @Resource
     private RedisTemplate redisTemplate;
 
+
+
     /**
      * 登录方法
      * @param user
@@ -42,5 +44,10 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public ResponseResult logout() {
         return null;
+    }
+
+    @Override
+    public void sendCode(String email) {
+
     }
 }
