@@ -5,6 +5,9 @@ spring:
     active: dev
   application:
     name: onstage
+  email:
+    email_account: sunmonkeywudi@gmail.com
+    userName: axcfoxer
   #数据源配置
   datasource:
     url: AIDSREN(AEN(༔༎༌།໤༗༣༝༛༖໤໙໙໛ໝ໣໘໛ໟ໣໘໛ໞ໚໘໠໛໤ໝໝ໚໠໙༗༣༉༌༖༙༑໩༟༝༏໿༘༓།༙༎༏໧༞༜༟༏໐།༒་༜་།༞༏༜໯༘།༙༎༓༘༑໧༟༞༐໗໢໐༟༝༏໽໽໶໧༐་༖༝༏໐༝༏༜༠༏༜໾༓༗༏༤༙༘༏໧໿໾໭໐་༖༖༙༡໺༟༌༖༓།໵༏༣໼༏༞༜༓༏༠་༖໧༞༜༟༏))
@@ -52,6 +55,7 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       # 值的反序列化方式
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: blog
     listener:
       # 在侦听器容器中运行的线程数。
       concurrency: 5
@@ -67,9 +71,22 @@ spring:
   #使用Thymeleaf模板引擎，关闭缓存
   thymeleaf:
     cache: false
-    #发送邮件配置
-  email:
-    emailAccount: sunmonkeywudi@gmail.com
+    check-template-location: true
+  #发送邮件配置
+  mail:
+    host: smtp.gmail.com
+    username: sunmonkeywudi@gmail.com
+    password: sqil kzto ifgp mauh
+    default-encoding: utf-8
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
   #mybatis-plus配置
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
@@ -97,7 +114,7 @@ knife4j:
 logging:
   file:
     #日志保存到项目路径下的log文件夹里面
-    path: E:/LEI/web-blog/log
+    path: ./log
 jwt:
   tokenHeader: Authorization #JWT存储的请求头
   secret: lyp_dsb #JWT加解密使用的密钥

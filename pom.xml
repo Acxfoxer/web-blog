@@ -32,7 +32,11 @@
         <hutool.version>5.8.11</hutool.version>
         <commons.lang3.version>3.12.0</commons.lang3.version>
         <commons.io.version>2.11.0</commons.io.version>
-        <thymeleaf.version>3.0.15.RELEASE</thymeleaf.version>
+        <springboot-thymeleaf.version>2.7.9</springboot-thymeleaf.version>
+        <email.version>2.6.14</email.version>
+        <blog.kafka.version>2.9.13</blog.kafka.version>
+        <kafka.client.version>3.6.0</kafka.client.version>
+        <jackson.databind.version>2.13.5</jackson.databind.version>
         <knife4j.version>2.0.9</knife4j.version>
         <mybatis.version>2.3.0</mybatis.version>
         <druid.version>1.2.15</druid.version>
@@ -91,7 +95,7 @@
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
-                <version>2.12.3</version>
+                <version>${jackson.databind.version}</version>
             </dependency>
             <!-- Needed only if you use the spring-boot Maven plugin -->
             <dependency>
@@ -144,6 +148,7 @@
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
             </dependency>
             <!--mysql驱动-->
             <dependency>
@@ -153,9 +158,9 @@
             </dependency>
             <!--thymeleaf模板引擎-->
             <dependency>
-                <groupId>org.thymeleaf</groupId>
-                <artifactId>thymeleaf</artifactId>
-                <version>${thymeleaf.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-thymeleaf</artifactId>
+                <version>${springboot-thymeleaf.version}</version>
             </dependency>
             <!--aliyunOSS-->
             <dependency>
@@ -193,7 +198,23 @@
             <dependency>
                 <groupId>org.springframework.kafka</groupId>
                 <artifactId>spring-kafka</artifactId>
-                <version>${kafka.version}</version>
+                <version>${blog.kafka.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka.client.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka-test</artifactId>
+                <version>${blog.kafka.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-mail</artifactId>
+                <version>${email.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
