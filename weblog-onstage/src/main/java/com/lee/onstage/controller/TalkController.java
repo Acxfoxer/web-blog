@@ -34,7 +34,7 @@ public class TalkController {
     @GetMapping("/home")
     public ResponseResult<List<String>> getHomeTalk(){
         List<String> talkContent = talkService.list().stream().map(Talk::getTalkContent).collect(Collectors.toList());
-        return ResponseResult.success(ResultCode.SUCCESS.getValue(),ResultCode.SUCCESS.getMsg(), talkContent);
+        return ResponseResult.success(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMsg(), talkContent);
     }
     @ApiOperation(value = "查看说说列表")
     @GetMapping("/list")

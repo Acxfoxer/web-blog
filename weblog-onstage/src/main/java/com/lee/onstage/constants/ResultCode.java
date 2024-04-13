@@ -66,16 +66,16 @@ public enum ResultCode {
      * 接口未实现
      */
      NOT_IMPLEMENTED(501,"接口未实现");
-    private final int value;
+    private final int code;
     private final String msg;
 
-    private ResultCode(int value,String msg) {
-        this.value=value;
+    private ResultCode(int code,String msg) {
+        this.code=code;
         this.msg=msg;
     }
 
-    public int getValue() {
-        return value;
+    public int getCode() {
+        return code;
     }
     public String getMsg(){
         return msg;

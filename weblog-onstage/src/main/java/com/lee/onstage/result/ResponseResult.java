@@ -40,14 +40,14 @@ public class ResponseResult<T> implements Serializable {
         return buildResult(code,msg,null);
     }
     public static <T> ResponseResult<T> success(T data){
-        return  buildResult(ResultCode.SUCCESS.getValue(),ResultCode.SUCCESS.getMsg(),data);
+        return  buildResult(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMsg(),data);
     }
     public static <T> ResponseResult<T> success(Integer code,String msg,T data){
         return buildResult(code,msg,data);
     }
 
     public static <T> ResponseResult<T> success(){
-        return  buildResult(ResultCode.SUCCESS.getValue(),ResultCode.SUCCESS.getMsg(),null);
+        return  buildResult(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMsg(),null);
     }
     public static <T> ResponseResult<T> error(Integer code,String msg){
        return buildResult(code,msg,null);

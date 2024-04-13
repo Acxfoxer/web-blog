@@ -36,17 +36,17 @@ public class VerifyCodeFilter extends OncePerRequestFilter {
             if (StrUtil.isEmpty(requestCaptcha)){
                 //删除缓存里的验证码信息
                 session.removeAttribute("captcha");
-                response.getWriter().write(JSON.toJSONString(ResponseResult.error(ResultCode.CAPTCHE_ERROR.getValue(),"验证码不能为空!")));
+                response.getWriter().write(JSON.toJSONString(ResponseResult.error(ResultCode.CAPTCHE_ERROR.getCode(),"验证码不能为空!")));
                 return;
             }
             if (StrUtil.isEmpty(genCaptcha)){
                 //验证码为空
-                response.getWriter().write(JSON.toJSONString(ResponseResult.error(ResultCode.CAPTCHE_ERROR.getValue(),"验证码已失效!")));
+                response.getWriter().write(JSON.toJSONString(ResponseResult.error(ResultCode.CAPTCHE_ERROR.getCode(),"验证码已失效!")));
                 return;
             }
             if (!StrUtil.equalsIgnoreCase(genCaptcha,requestCaptcha)){
                 session.removeAttribute("captcha");
-                response.getWriter().write(JSON.toJSONString(ResponseResult.error(ResultCode.CAPTCHE_ERROR.getValue(),"验证码错误!")));
+                response.getWriter().write(JSON.toJSONString(ResponseResult.error(ResultCode.CAPTCHE_ERROR.getCode(),"验证码错误!")));
                 return;
             }
         }

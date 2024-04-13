@@ -1,7 +1,10 @@
 package com.lee.onstage.service.impl;
 
+import cn.hutool.captcha.CaptchaUtil;
+import cn.hutool.core.lang.Assert;
 import com.lee.onstage.entity.User;
 import com.lee.onstage.result.ResponseResult;
+import com.lee.onstage.service.EmailService;
 import com.lee.onstage.utils.MyRedisCache;
 import com.lee.onstage.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +26,8 @@ public class LoginServiceImpl implements LoginService {
     private MyRedisCache redisCache;
     @Resource
     private RedisTemplate redisTemplate;
+    @Resource
+    private EmailService emailService;
 
 
 
@@ -48,6 +53,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public void sendCode(String email) {
+        //校验验证码是否正确
 
     }
 }

@@ -2,6 +2,7 @@ package com.lee.onstage;
 
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.lang.Assert;
 import cn.hutool.core.lang.UUID;
 import com.lee.onstage.constants.RedisConstant;
 import com.lee.onstage.model.dto.EmailDto;
@@ -103,5 +104,9 @@ public class OnStageApplicationTest {
         contextMap.put("name","Acxfoxer");
         emailDto.setContentMap(contextMap);
         emailService.sendHtmlEmail(emailDto);
+    }
+    @Test
+    void testAssertByHutool(){
+        Assert.isTrue(false,"12312451");
     }
 }

@@ -35,6 +35,6 @@ public class ScrollWordServiceImpl extends ServiceImpl<ScrollWordMapper, ScrollW
         output.setLength(length);
         output.setReviewer(0);
         scrollWordMapper.insert(output);
-        return  ResponseResult.success(ResultCode.SUCCESS.getValue(),"插入成功");
+        return  ResponseResult.success(ResultCode.SUCCESS.getCode(),"插入成功");
     }
 }
