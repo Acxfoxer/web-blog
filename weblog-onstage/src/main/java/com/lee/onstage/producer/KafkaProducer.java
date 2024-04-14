@@ -21,7 +21,7 @@ public class KafkaProducer {
     }
 
 
-    public void send(Object message,String topic){
+    public void send(String topic,Object message){
         String messageJsonStr = JSON.toJSONString(message);
         log.info("send message:{}",message);
         //发送消息

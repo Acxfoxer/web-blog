@@ -4,8 +4,10 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.lang.UUID;
+import com.lee.onstage.constants.KafkaConstants;
 import com.lee.onstage.constants.RedisConstant;
 import com.lee.onstage.model.dto.EmailDto;
+import com.lee.onstage.producer.KafkaProducer;
 import com.lee.onstage.service.EmailService;
 import com.lee.onstage.strategy.context.StrategyContext;
 import com.lee.onstage.strategy.impl.MyStrategyAdd;
@@ -29,6 +31,8 @@ public class OnStageApplicationTest {
     StringEncryptor stringEncryptor;
     @Resource
     EmailService emailService;
+    @Resource
+    KafkaProducer kafkaProducer;
 
     @Test
     public void test(){
@@ -108,5 +112,10 @@ public class OnStageApplicationTest {
     @Test
     void testAssertByHutool(){
         Assert.isTrue(false,"12312451");
+    }
+
+    @Test
+    void testKafka(){
+        kafkaProducer.send(KafkaConstants.EMAIL,"123425131");
     }
 }

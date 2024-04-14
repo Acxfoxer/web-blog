@@ -49,9 +49,9 @@ public class CommonConstant {
     public static final String COMMON_TEMPLATE = "common.html";
 
     /**
-     * 用户邮件HTMl模板
+     * 用户注册邮件HTMl模板
      */
-    public static final String USER_TEMPLATE = "user.html";
+    public static final String REGISTER_TEMPLATE = "userRegister.html";
 
     /**
      * 作者邮件HTML模板
@@ -92,6 +92,7 @@ public class CommonConstant {
      * ParentView组件标识
      */
     public final static String PARENT_VIEW = "ParentView";
+
 
     public final static String TRACE_ID="traceId";
     public final static String SPAN_ID="spanId";

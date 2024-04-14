@@ -18,9 +18,9 @@ public class RedisConstant {
     public static final String CODE_KEY = "blog:code:";
 
     /**
-     * 验证码过期时间
+     * 验证码过期时间,5分钟
      */
-    public static final Integer CODE_EXPIRE_TIME = 2;
+    public static final Integer CODE_EXPIRE_TIME = 5;
 
     /**
      * 文章浏览量
