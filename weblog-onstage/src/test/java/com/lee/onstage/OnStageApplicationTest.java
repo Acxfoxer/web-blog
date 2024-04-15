@@ -6,14 +6,10 @@ import cn.hutool.core.lang.Assert;
 import cn.hutool.core.lang.UUID;
 import com.lee.onstage.constants.KafkaConstants;
 import com.lee.onstage.constants.RedisConstant;
+import com.lee.onstage.factory.PayRulesStrategyFactory;
 import com.lee.onstage.model.dto.EmailDto;
 import com.lee.onstage.producer.KafkaProducer;
 import com.lee.onstage.service.EmailService;
-import com.lee.onstage.strategy.context.StrategyContext;
-import com.lee.onstage.strategy.impl.MyStrategyAdd;
-import com.lee.onstage.strategy.impl.MyStrategyDivision;
-import com.lee.onstage.strategy.impl.MyStrategyMultiply;
-import com.lee.onstage.strategy.impl.MyStrategySubtract;
 import org.jasypt.encryption.StringEncryptor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +29,12 @@ public class OnStageApplicationTest {
     EmailService emailService;
     @Resource
     KafkaProducer kafkaProducer;
+    @Resource
+    PayRulesStrategyFactory payRulesStrategyFactory;
 
     @Test
     public void test(){
-        StrategyContext context = new StrategyContext(new MyStrategyDivision());
-        System.out.println(context.executeStrategy(1,2));
-        StrategyContext context1= new StrategyContext(new MyStrategySubtract());
-        System.out.println(context1.executeStrategy(1,2));
-        StrategyContext context2 = new StrategyContext(new MyStrategyAdd());
-        System.out.println(context2.executeStrategy(1,2));
-        StrategyContext context3 = new StrategyContext(new MyStrategyMultiply());
-        System.out.println(context3.executeStrategy(1,2));
+
     }
     @Test
     void test1(){
@@ -117,5 +108,13 @@ public class OnStageApplicationTest {
     @Test
     void testKafka(){
         kafkaProducer.send(KafkaConstants.EMAIL,"123425131");
+    }
+
+    @Test
+    void testStrategy() throws Exception {
+        payRulesStrategyFactory.getPayService("wxPay").pay();
+        payRulesStrategyFactory.getPayService("aliPay").pay();
+        payRulesStrategyFactory.getPayService("unionPay").pay();
+        payRulesStrategyFactory.getPayService("paypalPay").pay();
     }
 }

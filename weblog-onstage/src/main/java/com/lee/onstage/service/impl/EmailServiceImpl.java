@@ -1,14 +1,9 @@
 package com.lee.onstage.service.impl;
 
-import cn.hutool.extra.mail.Mail;
-import cn.hutool.extra.mail.MailAccount;
 import com.lee.onstage.model.dto.EmailDto;
 import com.lee.onstage.service.EmailService;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -18,8 +13,6 @@ import org.thymeleaf.context.Context;
 
 import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
-import java.nio.charset.StandardCharsets;
-import java.util.Date;
 
 /**
  * 邮件服务
