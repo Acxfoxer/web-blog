@@ -41,14 +41,14 @@ export function getUserInfo(): AxiosPromise<Result<UserInfo>> {
 
 /**
  * 发送邮箱验证码
- * @param params 邮箱
+ * @param email
  */
-export function getCode(username: string): AxiosPromise<Result<null>> {
+export function getCode(email: string): AxiosPromise<Result<null>> {
   return request({
     url: "/code",
     method: "get",
     params: {
-      username,
+      email,
     },
   });
 }

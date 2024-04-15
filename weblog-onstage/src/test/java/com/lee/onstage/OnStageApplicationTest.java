@@ -117,4 +117,20 @@ public class OnStageApplicationTest {
         payRulesStrategyFactory.getPayService("unionPay").pay();
         payRulesStrategyFactory.getPayService("paypalPay").pay();
     }
+
+    @Test
+    void testCheckMail(){
+        String email = "2593644160@qq.com";
+        boolean b = CommonUtils.checkEmail(email);
+        System.out.println(b);
+    }
+    @Test
+    void testKafkaSendObject(){
+        EmailDto emailDto = EmailDto.builder()
+                .emailAccounts(null)
+                .subject("12345")
+                .contentMap(new HashMap<>())
+                .content("sasfa").template("1234").build();
+        kafkaProducer.send(KafkaConstants.EMAIL,emailDto);
+    }
 }

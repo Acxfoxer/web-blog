@@ -48,8 +48,8 @@ public class LoginServiceImpl implements LoginService {
 
     /**
      * 登录方法
-     * @param user
-     * @return
+     * @param user 登录用户
+     * @return ResponseResult
      */
     @Override
     public ResponseResult login(User user) {
@@ -60,12 +60,21 @@ public class LoginServiceImpl implements LoginService {
         return null;
     }
 
-
+    /**
+     * 登出
+     * @return ResponseResult
+     */
     @Override
     public ResponseResult logout() {
         return null;
     }
 
+    /**
+     * 发送验证码
+     * @param email 邮箱地址
+     * @author Acxfoxer
+     * @Date 20240415
+     */
     @Override
     public void sendCode(String email) {
         //校验验证码是否正确

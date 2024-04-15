@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class CommonUtils {
 
     public static boolean checkEmail(String email){
-        Pattern pattern = Pattern.compile(" /w[-.w]*@[-a-z0-9]+(.[-a-z0-9]+)*.(com|cn|edu|uk)/ig");
+        Pattern pattern = Pattern.compile("^\\w+((-\\w+)|(\\.\\w+))*\\@[A-Za-z0-9]+((\\.|-)[A-Za-z0-9]+)*\\.[A-Za-z0-9]+$");
         Matcher matcher = pattern.matcher(email);
         return matcher.find();
     }
