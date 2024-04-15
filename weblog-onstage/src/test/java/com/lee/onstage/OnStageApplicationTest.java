@@ -10,6 +10,7 @@ import com.lee.onstage.factory.PayRulesStrategyFactory;
 import com.lee.onstage.model.dto.EmailDto;
 import com.lee.onstage.producer.KafkaProducer;
 import com.lee.onstage.service.EmailService;
+import com.lee.onstage.utils.CommonUtils;
 import org.jasypt.encryption.StringEncryptor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
