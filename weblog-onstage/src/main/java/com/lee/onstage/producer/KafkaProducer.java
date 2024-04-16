@@ -1,9 +1,16 @@
 package com.lee.onstage.producer;
 
 import com.alibaba.fastjson2.JSON;
+import com.lee.onstage.model.dto.EmailDto;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.units.qual.A;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
+import org.springframework.util.concurrent.FailureCallback;
+import org.springframework.util.concurrent.ListenableFuture;
+import org.springframework.util.concurrent.SuccessCallback;
 
 /**
  * kafka消息发送端

@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.lang.UUID;
+import com.alibaba.fastjson2.JSON;
 import com.lee.onstage.constants.KafkaConstants;
 import com.lee.onstage.constants.RedisConstant;
 import com.lee.onstage.factory.PayRulesStrategyFactory;
@@ -11,6 +12,7 @@ import com.lee.onstage.model.dto.EmailDto;
 import com.lee.onstage.producer.KafkaProducer;
 import com.lee.onstage.service.EmailService;
 import com.lee.onstage.utils.CommonUtils;
+import org.apache.poi.common.usermodel.GenericRecord;
 import org.jasypt.encryption.StringEncryptor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,11 +109,6 @@ public class OnStageApplicationTest {
     }
 
     @Test
-    void testKafka(){
-        kafkaProducer.send(KafkaConstants.EMAIL,"123425131");
-    }
-
-    @Test
     void testStrategy() throws Exception {
         payRulesStrategyFactory.getPayService("wxPay").pay();
         payRulesStrategyFactory.getPayService("aliPay").pay();
@@ -132,6 +129,6 @@ public class OnStageApplicationTest {
                 .subject("12345")
                 .contentMap(new HashMap<>())
                 .content("sasfa").template("1234").build();
-        kafkaProducer.send(KafkaConstants.EMAIL,emailDto);
+        kafkaProducer.send(KafkaConstants.EMAIL, emailDto);
     }
 }

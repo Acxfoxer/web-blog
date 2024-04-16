@@ -25,8 +25,8 @@ public class BlogKafkaListener {
      * @param msg            监听到的信息
      * @param acknowledgment 唤醒参数
      */
-    @KafkaListener(topics = KafkaConstants.EMAIL,containerFactory = "kafkaListenerContainerFactory",id = "blog")
-    public void processMsg(ConsumerRecord<String,EmailDto> msg, Acknowledgment acknowledgment){
+    @KafkaListener(topics = KafkaConstants.EMAIL,containerFactory = "kafkaListenerContainerFactory",id = "blog",errorHandler = "myTopicErrorHandler" )
+        public void processMsg(ConsumerRecord<String, Object> msg, Acknowledgment acknowledgment){
         log.info("监听器监听到消息,offset:{},partition:{},key:{},value{}",
                 msg.offset(),msg.partition(),msg.key(),msg.value());
         acknowledgment.acknowledge();

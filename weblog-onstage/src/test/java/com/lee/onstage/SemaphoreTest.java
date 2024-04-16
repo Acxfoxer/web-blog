@@ -6,7 +6,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Semaphore;
 
 /**
- * @author: 公众号【Java金融】
+ * @author : Acxfoxer
  */
 public class SemaphoreTest {
     public static void main(String[] args) throws InterruptedException {
