@@ -7,9 +7,12 @@ import com.lee.onstage.constants.CommonConstant;
 import com.lee.onstage.constants.KafkaConstants;
 import com.lee.onstage.constants.RedisConstant;
 import com.lee.onstage.entity.User;
+import com.lee.onstage.mapper.UserMapper;
 import com.lee.onstage.model.dto.EmailDto;
+import com.lee.onstage.model.dto.UserRegisterDto;
 import com.lee.onstage.producer.KafkaProducer;
 import com.lee.onstage.result.ResponseResult;
+import com.lee.onstage.service.BlogRedisService;
 import com.lee.onstage.service.EmailService;
 import com.lee.onstage.utils.CommonUtils;
 import com.lee.onstage.utils.MyRedisCache;
@@ -25,10 +28,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.concurrent.ListenableFuture;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
+import javax.swing.text.html.Option;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -38,12 +39,11 @@ public class LoginServiceImpl implements LoginService {
     @Resource
     private AuthenticationManager authenticationManager;
     @Resource
-    private MyRedisCache redisCache;
-    @Resource
-    private EmailService emailService;
+    private BlogRedisService redisCache;
     @Resource
     private KafkaProducer kafkaProducer;
-
+    @Resource
+    private UserMapper userMapper;
 
 
     /**
@@ -52,7 +52,7 @@ public class LoginServiceImpl implements LoginService {
      * @return ResponseResult
      */
     @Override
-    public ResponseResult login(User user) {
+    public ResponseResult<?> login(User user) {
         //generate authenticationToken
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword());
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
@@ -65,7 +65,7 @@ public class LoginServiceImpl implements LoginService {
      * @return ResponseResult
      */
     @Override
-    public ResponseResult logout() {
+    public ResponseResult<?> logout() {
         return null;
     }
 
@@ -97,5 +97,24 @@ public class LoginServiceImpl implements LoginService {
         kafkaProducer.send(KafkaConstants.EMAIL,emailDto);
         //将验证码存入redis缓存中
         redisCache.setCacheObject(RedisConstant.CODE_KEY+email,code,RedisConstant.CODE_EXPIRE_TIME, TimeUnit.MINUTES);
+    }
+
+    /**
+     * 新用户注册
+     *
+     * @param userRegisterDto 用户注册信息
+     */
+    @Override
+    public void register(UserRegisterDto userRegisterDto) {
+        verifyCode(userRegisterDto.getCode(),userRegisterDto.getUserName());
+    }
+
+    /**
+     * 校验验证码
+     * @param code
+     * @param userName
+     */
+    private void verifyCode(String code, String userName) {
+
     }
 }

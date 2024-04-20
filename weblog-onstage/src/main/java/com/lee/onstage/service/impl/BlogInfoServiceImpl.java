@@ -8,6 +8,7 @@ import com.lee.onstage.entity.SiteConfig;
 import com.lee.onstage.mapper.*;
 import com.lee.onstage.model.vo.*;
 import com.lee.onstage.service.BlogInfoService;
+import com.lee.onstage.service.BlogRedisService;
 import com.lee.onstage.service.SiteConfigService;
 import com.lee.onstage.utils.IPUtil;
 import com.lee.onstage.utils.MyRedisCache;
@@ -39,10 +40,10 @@ public class BlogInfoServiceImpl implements BlogInfoService {
     private final UserMapper userMapper;
 
     private final VisitLogMapper visitLogMapper;
-    private final MyRedisCache redisCache;
+    private final BlogRedisService redisCache;
     private final HttpServletRequest request;
 
-    public BlogInfoServiceImpl(ArticleMapper articleMapper, CategoryMapper categoryMapper, TagMapper tagMapper, SiteConfigService siteConfigService, MessageMapper messageMapper, UserMapper userMapper, VisitLogMapper visitLogMapper, MyRedisCache redisCache, HttpServletRequest request) {
+    public BlogInfoServiceImpl(ArticleMapper articleMapper, CategoryMapper categoryMapper, TagMapper tagMapper, SiteConfigService siteConfigService, MessageMapper messageMapper, UserMapper userMapper, VisitLogMapper visitLogMapper, BlogRedisService redisCache, HttpServletRequest request) {
         this.articleMapper = articleMapper;
         this.categoryMapper = categoryMapper;
         this.tagMapper = tagMapper;

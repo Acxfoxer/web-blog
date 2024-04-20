@@ -18,6 +18,7 @@ import com.lee.onstage.model.dto.PageParamDto;
 import com.lee.onstage.model.vo.CommentCountVO;
 import com.lee.onstage.model.vo.PageResult;
 import com.lee.onstage.model.vo.TalkVO;
+import com.lee.onstage.service.BlogRedisService;
 import com.lee.onstage.service.TalkService;
 import com.lee.onstage.utils.MyRedisCache;
 import com.lee.onstage.utils.PageUtils;
@@ -40,11 +41,11 @@ import static com.lee.onstage.constants.RedisConstant.*;
 @Service("talkService")
 public class TalkServiceImpl extends ServiceImpl<TalkMapper, Talk> implements TalkService {
     private final TalkMapper talkMapper;
-    private final MyRedisCache redisCache;
+    private final BlogRedisService redisCache;
 
     private final CommentMapper commentMapper;
 
-    public TalkServiceImpl(TalkMapper talkMapper, MyRedisCache redisCache, CommentMapper commentMapper) {
+    public TalkServiceImpl(TalkMapper talkMapper, BlogRedisService redisCache, CommentMapper commentMapper) {
         this.talkMapper = talkMapper;
         this.redisCache = redisCache;
         this.commentMapper = commentMapper;

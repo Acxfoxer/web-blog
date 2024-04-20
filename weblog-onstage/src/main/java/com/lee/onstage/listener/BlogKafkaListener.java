@@ -1,7 +1,9 @@
 package com.lee.onstage.listener;
 
+import com.alibaba.fastjson2.JSON;
 import com.lee.onstage.constants.KafkaConstants;
 import com.lee.onstage.model.dto.EmailDto;
+import com.lee.onstage.service.EmailService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -19,6 +21,8 @@ import javax.annotation.Resource;
 public class BlogKafkaListener {
     @Resource
     KafkaTemplate<String,Object> kafkaTemplate;
+    @Resource
+    EmailService emailService;
 
     /**
      * email主题消费者,注意设置的ackMode为MANUAL_IMMEDIATE是需引入1Acknowledgment参数,调用acknowledge()手动提交偏移量
@@ -29,6 +33,8 @@ public class BlogKafkaListener {
         public void processMsg(ConsumerRecord<String, Object> msg, Acknowledgment acknowledgment){
         log.info("监听器监听到消息,offset:{},partition:{},key:{},value{}",
                 msg.offset(),msg.partition(),msg.key(),msg.value());
+        EmailDto emailDto = JSON.to(EmailDto.class, msg.value());
+        emailService.sendHtmlEmail(emailDto);
         acknowledgment.acknowledge();
     }
 }

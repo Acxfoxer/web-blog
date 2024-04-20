@@ -8,6 +8,7 @@ import com.lee.onstage.mapper.TagMapper;
 import com.lee.onstage.model.dto.PageParamDto;
 import com.lee.onstage.model.vo.*;
 import com.lee.onstage.result.ResponseResult;
+import com.lee.onstage.service.BlogRedisService;
 import com.lee.onstage.service.TagService;
 import com.lee.onstage.utils.MyRedisCache;
 import com.lee.onstage.utils.PageUtils;
@@ -29,7 +30,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
     private TagMapper tagMapper;
 
     @Resource
-    private MyRedisCache redisCache;
+    private BlogRedisService redisCache;
 
     @Resource
     private ArticleMapper articleMapper;

@@ -8,6 +8,7 @@ import com.lee.onstage.mapper.CommentMapper;
 import com.lee.onstage.entity.Comment;
 import com.lee.onstage.model.dto.PageParamDto;
 import com.lee.onstage.model.vo.*;
+import com.lee.onstage.service.BlogRedisService;
 import com.lee.onstage.service.CommentService;
 import com.lee.onstage.utils.MyRedisCache;
 import com.lee.onstage.utils.PageUtils;
@@ -32,10 +33,10 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     private CommentMapper commentMapper;
 
     @Resource
-    private MyRedisCache redisCache;
+    private BlogRedisService redisCache;
     /**
      * 获取最近评论
-     * @return
+     * @return List<RecentCommentVO>
      */
     @Override
     public  List<RecentCommentVO> listRecentComments() {
@@ -44,8 +45,8 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
 
     /**
      * 获取文章
-     * @param pageParamDto
-     * @return
+     * @param pageParamDto 页面参数
+     * @return PageResult<CommentVO>
      */
     @Override
     public PageResult<CommentVO> listCommentsByArticleId(PageParamDto pageParamDto) {

@@ -4,6 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lee.onstage.mapper.SiteConfigMapper;
 import com.lee.onstage.entity.SiteConfig;
+import com.lee.onstage.service.BlogRedisService;
 import com.lee.onstage.service.SiteConfigService;
 import com.lee.onstage.utils.MyRedisCache;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ import static com.lee.onstage.constants.RedisConstant.*;
 @Service("siteConfigService")
 public class SiteConfigServiceImpl extends ServiceImpl<SiteConfigMapper, SiteConfig> implements SiteConfigService {
     @Resource
-    private MyRedisCache redisCache;
+    private BlogRedisService redisCache;
     @Override
     public SiteConfig getSiteConfig() {
         //从缓存中获取系统配置

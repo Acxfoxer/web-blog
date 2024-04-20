@@ -11,6 +11,7 @@ import com.lee.onstage.mapStruct.ArticleConvertMapper;
 import com.lee.onstage.model.dto.PageParamDto;
 import com.lee.onstage.model.vo.*;
 import com.lee.onstage.service.ArticleService;
+import com.lee.onstage.service.BlogRedisService;
 import com.lee.onstage.utils.MyRedisCache;
 import com.lee.onstage.utils.PageUtils;
 import io.swagger.annotations.ApiOperation;
@@ -33,7 +34,7 @@ import java.util.stream.Collectors;
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
     private static final Integer DEFAULT=0;
     @Resource
-    private MyRedisCache redisCache;
+    private BlogRedisService redisCache;
     @Resource
     private ArticleMapper articleMapper;
     /**
