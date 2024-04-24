@@ -1,5 +1,6 @@
 # Project exclude paths
 /weblog-onstage/target/
 /.idea/
-/.log/*
+*.log
+*.jar
 
