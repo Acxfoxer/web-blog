@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 @Api(tags = "登录模块")
 @RestController
@@ -26,8 +27,8 @@ public class LoginController {
 
     @PostMapping("/register")
     @ApiOperation("注册")
-    public ResponseResult<?> register(@RequestBody UserRegisterDto userRegisterDto){
-        loginService.register(userRegisterDto);
+    public ResponseResult<?> register(@RequestBody UserRegisterDto userRegisterDto, HttpServletRequest httpServletRequest){
+        loginService.register(userRegisterDto,httpServletRequest);
        return ResponseResult.success();
 
     }

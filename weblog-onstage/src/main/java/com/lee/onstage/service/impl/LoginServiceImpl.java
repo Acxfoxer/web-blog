@@ -3,11 +3,15 @@ package com.lee.onstage.service.impl;
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.generator.RandomGenerator;
 import cn.hutool.core.lang.Assert;
-import com.lee.onstage.constants.CommonConstant;
-import com.lee.onstage.constants.KafkaConstants;
-import com.lee.onstage.constants.RedisConstant;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.lee.onstage.constants.*;
+import com.lee.onstage.entity.Role;
+import com.lee.onstage.entity.SiteConfig;
 import com.lee.onstage.entity.User;
+import com.lee.onstage.entity.UserRole;
 import com.lee.onstage.mapper.UserMapper;
+import com.lee.onstage.mapper.UserRoleMapper;
 import com.lee.onstage.model.dto.EmailDto;
 import com.lee.onstage.model.dto.UserRegisterDto;
 import com.lee.onstage.producer.KafkaProducer;
@@ -15,6 +19,7 @@ import com.lee.onstage.result.ResponseResult;
 import com.lee.onstage.service.BlogRedisService;
 import com.lee.onstage.service.EmailService;
 import com.lee.onstage.utils.CommonUtils;
+import com.lee.onstage.utils.IPUtil;
 import com.lee.onstage.utils.MyRedisCache;
 import com.lee.onstage.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
@@ -25,12 +30,16 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.concurrent.ListenableFuture;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.swing.text.html.Option;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+
+import static com.lee.onstage.constants.RedisConstant.SITE_SETTING;
 
 @Service
 @Slf4j
@@ -44,7 +53,8 @@ public class LoginServiceImpl implements LoginService {
     private KafkaProducer kafkaProducer;
     @Resource
     private UserMapper userMapper;
-
+    @Resource
+    private UserRoleMapper userRoleMapper;
 
     /**
      * 登录方法
@@ -104,17 +114,40 @@ public class LoginServiceImpl implements LoginService {
      *
      * @param userRegisterDto 用户注册信息
      */
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public void register(UserRegisterDto userRegisterDto) {
+    public void register(UserRegisterDto userRegisterDto, HttpServletRequest servletRequest) {
         verifyCode(userRegisterDto.getCode(),userRegisterDto.getUserName());
+        User user = userMapper.selectOne(new LambdaQueryWrapper<User>()
+                .eq(User::getUsername, userRegisterDto.getUserName()));
+        Assert.isNull(user,"邮箱已被注册");
+        SiteConfig siteConfig = redisCache.getObject(SITE_SETTING);
+        User newUser = User.builder()
+                .avatar(siteConfig.getUserAvatar())
+                .email(userRegisterDto.getUserName())
+                .username(userRegisterDto.getUserName())
+                .ipAddress(IPUtil.getIpAddr(servletRequest))
+                .nickname(CommonConstant.USER_NICKNAME + IdWorker.getId())
+                .isDisable(0)
+                .loginType(LoginTypeEnum.EMAIL.getLoginType())
+                .build();
+        userMapper.insert(newUser);
+        // 绑定用户角色
+        UserRole userRole = UserRole.builder()
+                .userId(newUser.getId())
+                .roleId(RoleEnum.USER.getRoleId())
+                .build();
+        userRoleMapper.insert(userRole);
     }
 
     /**
      * 校验验证码
-     * @param code
-     * @param userName
+     * @param code 验证码
+     * @param userName  用户名
      */
     private void verifyCode(String code, String userName) {
-
+        String cacheCode = redisCache.getCacheObject(RedisConstant.CODE_KEY+userName);
+        Assert.notBlank(cacheCode,"验证码未发送或已过期");
+        Assert.isTrue(code.equals(cacheCode),"验证码不正确,请重新输入");
     }
 }

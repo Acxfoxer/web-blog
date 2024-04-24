@@ -59,7 +59,6 @@ public class EmailServiceImpl implements EmailService {
             javaMailSender.send(mimeMessage);
         }catch (Exception e){
             log.info("email to {} failed to be send reason:{}",emailDto.getEmailAccounts(),e.getLocalizedMessage());
-
         }
 
     }
