@@ -94,7 +94,8 @@ public class LoginServiceImpl implements LoginService {
         HashMap<String,Object> contentMap= new HashMap<>();
         String code = captcha.generate();
         contentMap.put("code", code);
-        contentMap.put("name",CommonConstant.CAPTCHA);
+        contentMap.put("name",email);
+        contentMap.put("title",CommonConstant.REGISTER_TITLE);
         //组装发送参数
         EmailDto emailDto = EmailDto
                 .builder()
@@ -117,16 +118,17 @@ public class LoginServiceImpl implements LoginService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void register(UserRegisterDto userRegisterDto, HttpServletRequest servletRequest) {
-        verifyCode(userRegisterDto.getCode(),userRegisterDto.getUserName());
+        verifyCode(userRegisterDto.getCode(),userRegisterDto.getUsername());
         User user = userMapper.selectOne(new LambdaQueryWrapper<User>()
-                .eq(User::getUsername, userRegisterDto.getUserName()));
+                .eq(User::getUsername, userRegisterDto.getUsername()));
         Assert.isNull(user,"邮箱已被注册");
         SiteConfig siteConfig = redisCache.getObject(SITE_SETTING);
         User newUser = User.builder()
                 .avatar(siteConfig.getUserAvatar())
-                .email(userRegisterDto.getUserName())
-                .username(userRegisterDto.getUserName())
+                .email(userRegisterDto.getUsername())
+                .username(userRegisterDto.getUsername())
                 .ipAddress(IPUtil.getIpAddr(servletRequest))
+                .password(userRegisterDto.getPassword())
                 .nickname(CommonConstant.USER_NICKNAME + IdWorker.getId())
                 .isDisable(0)
                 .loginType(LoginTypeEnum.EMAIL.getLoginType())

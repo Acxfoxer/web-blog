@@ -174,10 +174,10 @@
     </select>
     <select id="selectArchiveVO" resultType="com.lee.onstage.model.vo.ArchiveVO">
         select id,article_title,article_cover,create_time from t_article
-        limit #{lim it},#{size}
+        limit #{limit},#{size}
     </select>
     <select id="selectByArticleId" resultType="com.lee.onstage.model.vo.ArticleVO">
-        select id,article_cover,article_title,article_content,article_type,view
+        select id,article_cover,article_title,article_content,article_type,view from t_article
     </select>
     <select id="selectArticleVO" resultType="com.lee.onstage.model.vo.ArticleVO" resultMap="articleVO">
         SELECT a.*,

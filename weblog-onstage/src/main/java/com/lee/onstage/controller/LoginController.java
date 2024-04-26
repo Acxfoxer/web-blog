@@ -27,9 +27,7 @@ public class LoginController {
 
     @PostMapping("/register")
     @ApiOperation("注册")
-    public ResponseResult<?> register(@RequestBody UserRegisterDto userRegisterDto, HttpServletRequest httpServletRequest){
-        loginService.register(userRegisterDto,httpServletRequest);
+    public ResponseResult<?> register(@RequestBody UserRegisterDto userRegisterDto, HttpServletRequest httpServletRequest){loginService.register(userRegisterDto,httpServletRequest);
        return ResponseResult.success();
-
     }
 }

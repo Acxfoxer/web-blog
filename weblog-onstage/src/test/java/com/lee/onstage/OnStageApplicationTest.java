@@ -6,8 +6,11 @@ import cn.hutool.core.lang.Assert;
 import cn.hutool.core.lang.UUID;
 import com.alibaba.fastjson2.JSON;
 import com.lee.onstage.constants.KafkaConstants;
+import com.lee.onstage.constants.LoginTypeEnum;
 import com.lee.onstage.constants.RedisConstant;
+import com.lee.onstage.entity.User;
 import com.lee.onstage.factory.PayRulesStrategyFactory;
+import com.lee.onstage.mapper.UserMapper;
 import com.lee.onstage.model.dto.EmailDto;
 import com.lee.onstage.producer.KafkaProducer;
 import com.lee.onstage.service.EmailService;
@@ -34,6 +37,8 @@ public class OnStageApplicationTest {
     KafkaProducer kafkaProducer;
     @Resource
     PayRulesStrategyFactory payRulesStrategyFactory;
+    @Autowired
+    private UserMapper userMapper;
 
     @Test
     public void test(){
@@ -130,5 +135,19 @@ public class OnStageApplicationTest {
                 .contentMap(new HashMap<>())
                 .content("sasfa").template("1234").build();
         kafkaProducer.send(KafkaConstants.EMAIL, emailDto);
+    }
+
+    @Test
+    void testInsertUser(){
+        User user = User.builder().nickname("123")
+                .username("cs")
+                .ipAddress("127.0.0.1")
+                .email("1872762974@qq.com")
+                .password("1234567")
+                .avatar("https://lyp.obs.cn-south-1.myhuaweicloud.com/blog/avatar/A88F15DE-8923-10D1-BA63-8C2CF93ADC28.jpg")
+                .loginType(LoginTypeEnum.EMAIL.getLoginType())
+                .isDisable(0)
+                .build();
+        userMapper.insert(user);
     }
 }

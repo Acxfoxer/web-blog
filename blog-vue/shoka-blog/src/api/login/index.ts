@@ -1,4 +1,4 @@
-import { Result, UserForm } from "@/model";
+import {ResponseResult, Result, UserForm} from "@/model";
 import request from "@/utils/request";
 import { AxiosPromise } from "axios";
 import { GitInfo, LoginForm, UserInfo } from "./types";
@@ -20,7 +20,7 @@ export function login(data: LoginForm): AxiosPromise<Result<string>> {
  * 邮箱注册
  * @param data 注册信息
  */
-export function register(data: UserForm): AxiosPromise<Result<null>> {
+export function register(data: UserForm): AxiosPromise<ResponseResult<null>> {
   return request({
     url: "/register",
     method: "post",

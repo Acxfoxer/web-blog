@@ -93,6 +93,10 @@ public class CommonConstant {
      */
     public final static String PARENT_VIEW = "ParentView";
 
+    /**
+     *
+     */
+    public final static String REGISTER_TITLE="注册邮件";
 
     public final static String TRACE_ID="traceId";
     public final static String SPAN_ID="spanId";
